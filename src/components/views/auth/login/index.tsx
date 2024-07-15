@@ -4,7 +4,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { FormEvent, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faEyeSlash} from "@fortawesome/free-solid-svg-icons";
+import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 
 export default function LoginView() {
   const [visible, setVisible] = useState(true);
@@ -49,7 +50,9 @@ export default function LoginView() {
 
   return (
     <div className="font-serif bg-black bg-opacity-30 rounded-lg  shadow-lg">
-      <h1 className="text-center my-2 font-bold text-[40px] text-white">Login</h1>
+      <h1 className="text-center my-2 font-bold text-[40px] text-white">
+        Login
+      </h1>
       {error && (
         <div className="text-red-500 text-center text-[20px] mb-4">{error}</div>
       )}
@@ -100,6 +103,21 @@ export default function LoginView() {
               className=" p-2 text-white w-full mt-2 bg-gray-800 flex justify-center"
             >
               {loading ? `Loading...` : `Login`}
+            </button>
+            <div className="text-center text-white my-3">or</div>
+            <button
+              type="button"
+              onClick={() => signIn('google', {callbackUrl, redirect: false})}
+              className=" p-2 text-white w-full mt-2 bg-gray-800 flex justify-center"
+            >
+              {loading ? (
+                `Loading...`
+              ) : (
+                <div className="">
+                  <FontAwesomeIcon icon={faGoogle} />
+                  oogle
+                </div>
+              )}
             </button>
           </div>
         </form>
