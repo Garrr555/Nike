@@ -1,4 +1,6 @@
 'use client'
+import Button from "@/components/ui/button";
+import Input from "@/components/ui/input";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
@@ -63,74 +65,61 @@ export default function RegisterView (){
           <form action="" className="" onSubmit={handleSubmit}>
             <div className="my-5">
               <p className="">Email</p>
-              <label htmlFor="email" className=""></label>
-              <input
+              <Input
+                label=""
                 name="email"
-                id="email"
                 type="email"
-                className="w-full rounded-lg border border-gray-100 bg-gray-100 px-1 py-1 focus:outline-none"
+                placeholder=""
+                visible={false}
+                handleVisible=""
               />
             </div>
             <div className="my-5">
               <p className="">Fullname</p>
-              <label htmlFor="fullname" className=""></label>
-              <input
+              <Input
+                label=""
                 name="fullname"
-                id="fullname"
                 type="text"
-                className="w-full rounded-lg border border-gray-100 bg-gray-100 px-1 py-1 focus:outline-none"
+                placeholder=""
+                visible={false}
+                handleVisible=""
               />
             </div>
             <div className="my-5">
               <p className="">Phone</p>
-              <label htmlFor="phone" className=""></label>
-              <input
+              <Input
+                label=""
                 name="phone"
-                id="phone"
                 type="text"
-                className="w-full rounded-lg border border-gray-100 bg-gray-100 px-1 py-1 focus:outline-none"
+                placeholder=""
+                visible={false}
+                handleVisible=""
               />
             </div>
             <div className="my-5">
               <p className="">Password</p>
               <div className="">
-                <div className="flex items-center border border-gray-100 rounded-lg overflow-hidden">
-                  <label htmlFor="password" className=""></label>
-                  <input
-                    name="password"
-                    id="password"
-                    type={`${visible ? `password` : `text`}`}
-                    className="w-full  bg-gray-100 p-1 focus:outline-none"
-                  />
-                  <div
-                    onClick={handleVisible}
-                    className={`bg-gray-100 py-1 ${
-                      visible ? "px-[7px]" : "px-2"
-                    }`}
-                  >
-                    {visible ? (
-                      <FontAwesomeIcon
-                        className="text-[#a97231]"
-                        icon={faEyeSlash}
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        className="text-[#a97231]"
-                        icon={faEye}
-                      />
-                    )}
-                  </div>
-                </div>
+                <Input
+                  label=""
+                  name="password"
+                  type="password"
+                  placeholder="password"
+                  visible={visible}
+                  handleVisible={handleVisible}
+                />
                 <div className={`p-2 cursor-pointer w-5 rounded-sm mt-1`}></div>
               </div>
             </div>
             <div className="">
-              <button
+              {/* <button
                 type="submit"
                 className=" p-2 text-white w-full mt-2 bg-[#a97231] flex justify-center"
               >
                 {loading ? `Loading...` : `Register`}
-              </button>
+              </button> */}
+              <Button type="submit" variant="bg-[#a97231]">
+                {loading ? `Loading...` : `Register`}
+              </Button>
             </div>
           </form>
         </div>

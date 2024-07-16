@@ -6,6 +6,8 @@ import { FormEvent, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash} from "@fortawesome/free-solid-svg-icons";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
+import Input from "@/components/ui/input";
+import Button from "@/components/ui/button";
 
 export default function LoginView() {
   const [visible, setVisible] = useState(true);
@@ -60,55 +62,39 @@ export default function LoginView() {
         <form action="" className="" onSubmit={handleSubmit}>
           <div className="my-5">
             <p className="">Email</p>
-            <label htmlFor="email" className=""></label>
-            <input
+            <Input
+              label=""
               name="email"
-              id="email"
               type="email"
-              className="w-full rounded-lg border border-gray-100 bg-gray-100 px-1 py-1 focus:outline-none"
-              placeholder="username@gmail.com"
+              placeholder="exampel@gmail.com"
+              visible={false}
+              handleVisible=""
             />
           </div>
           <div className="my-5">
             <p className="">Password</p>
             <div className="">
-              <div className="flex items-center border border-gray-100 rounded-lg overflow-hidden">
-                <label htmlFor="password" className=""></label>
-                <input
-                  name="password"
-                  id="password"
-                  type={`${visible ? `password` : `text`}`}
-                  className="w-full  bg-gray-100 p-1 focus:outline-none"
-                  placeholder="password"
-                />
-                <div
-                  onClick={handleVisible}
-                  className={`bg-gray-100 py-1 ${
-                    visible ? "px-[7px]" : "px-2"
-                  }`}
-                >
-                  {visible ? (
-                    <FontAwesomeIcon icon={faEyeSlash} />
-                  ) : (
-                    <FontAwesomeIcon icon={faEye} />
-                  )}
-                </div>
-              </div>
+              <Input
+                label=""
+                name="password"
+                type="password"
+                placeholder="password"
+                visible={visible}
+                handleVisible={handleVisible}
+              />
               <div className={`p-2 cursor-pointer w-5 rounded-sm mt-1`}></div>
             </div>
           </div>
           <div className="">
-            <button
-              type="submit"
-              className=" p-2 text-white w-full mt-2 bg-gray-800 flex justify-center"
-            >
+            <Button type="submit" variant="bg-gray-800">
+              {" "}
               {loading ? `Loading...` : `Login`}
-            </button>
+            </Button>
             <div className="text-center text-white my-3">or</div>
-            <button
+            <Button
               type="button"
-              onClick={() => signIn('google', {callbackUrl, redirect: false})}
-              className=" p-2 text-white w-full mt-2 bg-gray-800 flex justify-center"
+              onClick={() => signIn("google", { callbackUrl, redirect: false })}
+              variant="bg-gray-800"
             >
               {loading ? (
                 `Loading...`
@@ -118,7 +104,7 @@ export default function LoginView() {
                   oogle
                 </div>
               )}
-            </button>
+            </Button>
           </div>
         </form>
       </div>
