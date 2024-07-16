@@ -8,6 +8,7 @@ import { faEye, faEyeSlash} from "@fortawesome/free-solid-svg-icons";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import Input from "@/components/ui/input";
 import Button from "@/components/ui/button";
+import AuthLayout from "@/components/layouts/AuthLayout";
 
 export default function LoginView() {
   const [visible, setVisible] = useState(true);
@@ -51,69 +52,129 @@ export default function LoginView() {
   };
 
   return (
-    <div className="font-serif bg-black bg-opacity-30 rounded-lg  shadow-lg">
-      <h1 className="text-center my-2 font-bold text-[40px] text-white">
-        Login
-      </h1>
-      {error && (
-        <div className="text-red-500 text-center text-[20px] mb-4">{error}</div>
-      )}
-      <div className=" px-3 py-5 w-96">
-        <form action="" className="" onSubmit={handleSubmit}>
-          <div className="my-5">
-            <p className="">Email</p>
+    <AuthLayout
+      title="Login"
+      link="/auth/register"
+      linkText="Don't have an account? "
+      error={error}
+    >
+      <form action="" className="" onSubmit={handleSubmit}>
+        <div className="my-5">
+          <p className="">Email</p>
+          <Input
+            label=""
+            name="email"
+            type="email"
+            placeholder="exampel@gmail.com"
+            visible={false}
+            handleVisible=""
+          />
+        </div>
+        <div className="my-5">
+          <p className="">Password</p>
+          <div className="">
             <Input
               label=""
-              name="email"
-              type="email"
-              placeholder="exampel@gmail.com"
-              visible={false}
-              handleVisible=""
+              name="password"
+              type="password"
+              placeholder="password"
+              visible={visible}
+              handleVisible={handleVisible}
             />
+            <div className={`p-2 cursor-pointer w-5 rounded-sm mt-1`}></div>
           </div>
-          <div className="my-5">
-            <p className="">Password</p>
-            <div className="">
-              <Input
-                label=""
-                name="password"
-                type="password"
-                placeholder="password"
-                visible={visible}
-                handleVisible={handleVisible}
-              />
-              <div className={`p-2 cursor-pointer w-5 rounded-sm mt-1`}></div>
-            </div>
-          </div>
-          <div className="">
-            <Button type="submit" variant="bg-gray-800">
-              {" "}
-              {loading ? `Loading...` : `Login`}
-            </Button>
-            <div className="text-center text-white my-3">or</div>
-            <Button
-              type="button"
-              onClick={() => signIn("google", { callbackUrl, redirect: false })}
-              variant="bg-gray-800"
-            >
-              {loading ? (
-                `Loading...`
-              ) : (
-                <div className="">
-                  <FontAwesomeIcon icon={faGoogle} />
-                  oogle
-                </div>
-              )}
-            </Button>
-          </div>
-        </form>
-      </div>
-      <p className="text-center my-5 text-white font-light">
-        Dont have an Account?
-        <span className="text-white font-semibold cursor-pointer">
-          <Link href={"/auth/register"}> Sign up here</Link>
-        </span>
-      </p>
-    </div>
+        </div>
+        <div className="">
+          <Button type="submit" variant="bg-gray-800">
+            {" "}
+            {loading ? `Loading...` : `Login`}
+          </Button>
+
+          <hr className="my-5" />
+
+          <Button
+            type="button"
+            onClick={() => signIn("google", { callbackUrl, redirect: false })}
+            variant="bg-gray-800"
+          >
+            {loading ? (
+              `Loading...`
+            ) : (
+              <div className="">
+                <FontAwesomeIcon icon={faGoogle} />
+                oogle
+              </div>
+            )}
+          </Button>
+        </div>
+      </form>
+    </AuthLayout>
+
+    // <div className="font-serif bg-black bg-opacity-30 rounded-lg  shadow-lg">
+    //   <h1 className="text-center my-2 font-bold text-[40px] text-white">
+    //     Login
+    //   </h1>
+    //   {error && (
+    //     <div className="text-red-500 text-center text-[20px] mb-4">{error}</div>
+    //   )}
+    //   <div className=" px-3 py-5 w-96">
+    //     <form action="" className="" onSubmit={handleSubmit}>
+    //       <div className="my-5">
+    //         <p className="">Email</p>
+    //         <Input
+    //           label=""
+    //           name="email"
+    //           type="email"
+    //           placeholder="exampel@gmail.com"
+    //           visible={false}
+    //           handleVisible=""
+    //         />
+    //       </div>
+    //       <div className="my-5">
+    //         <p className="">Password</p>
+    //         <div className="">
+    //           <Input
+    //             label=""
+    //             name="password"
+    //             type="password"
+    //             placeholder="password"
+    //             visible={visible}
+    //             handleVisible={handleVisible}
+    //           />
+    //           <div className={`p-2 cursor-pointer w-5 rounded-sm mt-1`}></div>
+    //         </div>
+    //       </div>
+    //       <div className="">
+    //         <Button type="submit" variant="bg-gray-800">
+    //           {" "}
+    //           {loading ? `Loading...` : `Login`}
+    //         </Button>
+
+    //         <hr className="my-5"/>
+
+    //         <Button
+    //           type="button"
+    //           onClick={() => signIn("google", { callbackUrl, redirect: false })}
+    //           variant="bg-gray-800"
+    //         >
+    //           {loading ? (
+    //             `Loading...`
+    //           ) : (
+    //             <div className="">
+    //               <FontAwesomeIcon icon={faGoogle} />
+    //               oogle
+    //             </div>
+    //           )}
+    //         </Button>
+    //       </div>
+    //     </form>
+    //   </div>
+    //   <p className="text-center my-5 text-white font-light">
+    //     Dont have an Account?
+    //     <span className="text-white font-semibold cursor-pointer">
+    //       <Link href={"/auth/register"}> Sign up here</Link>
+    //     </span>
+    //   </p>
+    // </div>
   );
 }
