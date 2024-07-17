@@ -16,7 +16,7 @@ export default function Button(props: propsType) {
       <button
         type={type}
         onClick={onClick}
-        className={`p-2 text-white w-full mt-2 flex justify-center ${variant}`}
+        className={`p-2 text-white mt-2 flex justify-center font-semibold mx-auto ${variant}`}
       >
         {children}
       </button>

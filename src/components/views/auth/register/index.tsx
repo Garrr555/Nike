@@ -104,84 +104,11 @@ export default function RegisterView (){
             </div>
           </div>
           <div className="">
-            <Button type="submit" variant="bg-[#a97231]">
+            <Button type="submit" variant="bg-[#a97231] w-full">
               {loading ? `Loading...` : `Register`}
             </Button>
           </div>
         </form>
       </AuthLayout>
-
-      // <div className="font-serif bg-gray-900 bg-opacity-30 rounded-lg  shadow-lg ">
-      //   <h1 className="text-center my-2 font-bold text-[40px] text-white">
-      //     Register
-      //   </h1>
-      //   {error && (
-      //     <div className="text-red-500 text-center text-[20px] mb-4">
-      //       {error}
-      //     </div>
-      //   )}
-      //   <div className=" px-3 py-5 w-96 text-[#a97231]">
-      //     <form action="" className="" onSubmit={handleSubmit}>
-      //       <div className="my-5">
-      //         <p className="">Email</p>
-      //         <Input
-      //           label=""
-      //           name="email"
-      //           type="email"
-      //           placeholder=""
-      //           visible={false}
-      //           handleVisible=""
-      //         />
-      //       </div>
-      //       <div className="my-5">
-      //         <p className="">Fullname</p>
-      //         <Input
-      //           label=""
-      //           name="fullname"
-      //           type="text"
-      //           placeholder=""
-      //           visible={false}
-      //           handleVisible=""
-      //         />
-      //       </div>
-      //       <div className="my-5">
-      //         <p className="">Phone</p>
-      //         <Input
-      //           label=""
-      //           name="phone"
-      //           type="text"
-      //           placeholder=""
-      //           visible={false}
-      //           handleVisible=""
-      //         />
-      //       </div>
-      //       <div className="my-5">
-      //         <p className="">Password</p>
-      //         <div className="">
-      //           <Input
-      //             label=""
-      //             name="password"
-      //             type="password"
-      //             placeholder="password"
-      //             visible={visible}
-      //             handleVisible={handleVisible}
-      //           />
-      //           <div className={`p-2 cursor-pointer w-5 rounded-sm mt-1`}></div>
-      //         </div>
-      //       </div>
-      //       <div className="">
-      //         <Button type="submit" variant="bg-[#a97231]">
-      //           {loading ? `Loading...` : `Register`}
-      //         </Button>
-      //       </div>
-      //     </form>
-      //   </div>
-      //   <p className="text-center my-5 font-light text-white">
-      //     Have an Account?
-      //     <span className=" cursor-pointer font-semibold">
-      //       <Link href={"/auth/login"}> Sign in here</Link>
-      //     </span>
-      //   </p>
-      // </div>
     );
 }
