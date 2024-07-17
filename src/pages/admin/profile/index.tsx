@@ -1,7 +1,11 @@
+import AdminLayout from "@/components/layouts/AdminLayout";
+
 export default function AdminProfilePage() {
   return (
-    <div>
-      <div>Admin Profile Page</div>
-    </div>
+    <AdminLayout>
+      <div>
+        <div>Admin Profile Page</div>
+      </div>
+    </AdminLayout>
   );
 }

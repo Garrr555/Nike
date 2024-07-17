@@ -1,10 +1,12 @@
 import AdminLayout from "@/components/layouts/AdminLayout";
-import DashboardAdminView from "@/components/views/admin/Dashboard";
+import UserAdminView from "@/components/views/admin/Users";
 
-export default function AdminPage(){
+export default function AdminUsersPage(){
     return (
-     <div>
-        <DashboardAdminView/>
-     </div>
+      <AdminLayout>
+        <div>
+          <div>Admin User Page</div>
+        </div>
+      </AdminLayout>
     );
 }
