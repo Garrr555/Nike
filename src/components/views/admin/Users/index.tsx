@@ -1,14 +1,14 @@
 import AdminLayout from "@/components/layouts/AdminLayout";
 import Button from "@/components/ui/button";
-import Modal from "@/components/ui/modal";
 import { useState } from "react";
+import ModalUpdateUser from "./ModalUpdateUser";
 
 type PropsType = {
   users: any;
 };
 
 export default function UserAdminView(props: PropsType) {
-  const [modalUpdateUser, setModalUpdateUser] = useState<any>({});
+  const [updatedUser, setUpdatedUser] = useState<any>({});
   const { users } = props;
   console.log(users);
 
@@ -55,7 +55,7 @@ export default function UserAdminView(props: PropsType) {
                     <Button
                       type="button"
                       variant="bg-primary w-24"
-                      onClick={() => setModalUpdateUser(user)}
+                      onClick={() => setUpdatedUser(user)}
                     >
                       Update
                     </Button>
@@ -69,11 +69,8 @@ export default function UserAdminView(props: PropsType) {
           </table>
         </div>
       </AdminLayout>
-      {Object.keys(modalUpdateUser).length && (
-        <Modal onClose={() => setModalUpdateUser({})}>
-          <h1 className="text-2xl font-semibold">Update User</h1>
-          <p className="text-sm">{modalUpdateUser.email}</p>
-        </Modal>
+      {Object.keys(updatedUser).length && (
+        <ModalUpdateUser updatedUser={updatedUser} setUpdatedUser={setUpdatedUser}/>
       )}
     </>
   );

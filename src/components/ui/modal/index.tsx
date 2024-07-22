@@ -18,7 +18,7 @@ export default function Modal({ children, onClose }: { children: React.ReactNode
 
   return (
     <div className="fixed top-0 w-[100vw] h-[100vh] bg-opacity-55 z-[1000] bg-dark flex items-center justify-center">
-      <div className="bg-primary text-white p-6 w-[50vw] max-h-[80vh]" ref={ref}>{children}</div>
+      <div className="bg-white text-primary p-6 w-[50vw] max-h-[80vh]" ref={ref}>{children}</div>
     </div>
   );
 }
