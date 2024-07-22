@@ -17,8 +17,8 @@ export default function AdminUsersPage() {
     console.log(users)
 
   return (
-    <div>
-        <UserAdminView users={users}/>
-    </div>
+    <>
+      <UserAdminView users={users}></UserAdminView>
+    </>
   );
 }

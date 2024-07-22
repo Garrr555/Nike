@@ -1,28 +1,43 @@
 import AdminLayout from "@/components/layouts/AdminLayout";
 import Button from "@/components/ui/button";
+import Modal from "@/components/ui/modal";
+import { useState } from "react";
 
 type PropsType = {
-    users: any
-}
+  users: any;
+};
 
-export default function UserAdminView(props: PropsType){
+export default function UserAdminView(props: PropsType) {
+  const [modalUpdateUser, setModalUpdateUser] = useState<any>({});
+  const { users } = props;
+  console.log(users);
 
-    const {users} = props
-    console.log(users)
-
-    return (
+  return (
+    <>
       <AdminLayout>
         <div className="">
-          <div className="text-4xl font-bold mb-10">User Management</div>
+          <div className="text-4xl font-bold mb-10 text-primary">User Management</div>
           <table className="w-full border-spacing-0 border-collapse border border-[#ddd] ">
             <thead className="">
               <tr className="text-xl text-left">
-                <th className="py-1 border border-[#ddd] bg-[#ddd] font-semibold pl-2">#</th>
-                <th className="py-1 border border-[#ddd] bg-[#ddd] font-semibold">Fullname</th>
-                <th className="py-1 border border-[#ddd] bg-[#ddd] font-semibold">Email</th>
-                <th className="py-1 border border-[#ddd] bg-[#ddd] font-semibold">Phone</th>
-                <th className="py-1 border border-[#ddd] bg-[#ddd] font-semibold">Role</th>
-                <th className="py-1 border border-[#ddd] bg-[#ddd] font-semibold">Action</th>
+                <th className="py-1 border border-[#ddd] bg-[#ddd] font-semibold pl-2">
+                  #
+                </th>
+                <th className="py-1 border border-[#ddd] bg-[#ddd] font-semibold">
+                  Fullname
+                </th>
+                <th className="py-1 border border-[#ddd] bg-[#ddd] font-semibold">
+                  Email
+                </th>
+                <th className="py-1 border border-[#ddd] bg-[#ddd] font-semibold">
+                  Phone
+                </th>
+                <th className="py-1 border border-[#ddd] bg-[#ddd] font-semibold">
+                  Role
+                </th>
+                <th className="py-1 border border-[#ddd] bg-[#ddd] font-semibold">
+                  Action
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -37,7 +52,11 @@ export default function UserAdminView(props: PropsType){
                   <td>{user.phone}</td>
                   <td>{user.role}</td>
                   <td className="flex gap-2 items-center mb-2">
-                    <Button type="button" variant="bg-primary w-24">
+                    <Button
+                      type="button"
+                      variant="bg-primary w-24"
+                      onClick={() => setModalUpdateUser(user)}
+                    >
                       Update
                     </Button>
                     <Button type="button" variant="bg-dark w-24">
@@ -50,5 +69,12 @@ export default function UserAdminView(props: PropsType){
           </table>
         </div>
       </AdminLayout>
-    );
+      {Object.keys(modalUpdateUser).length && (
+        <Modal onClose={() => setModalUpdateUser({})}>
+          <h1 className="text-2xl font-semibold">Update User</h1>
+          <p className="text-sm">{modalUpdateUser.email}</p>
+        </Modal>
+      )}
+    </>
+  );
 }
