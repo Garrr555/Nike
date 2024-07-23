@@ -2,9 +2,36 @@ import Button from "@/components/ui/button";
 import Input from "@/components/ui/input";
 import Modal from "@/components/ui/modal";
 import Select from "@/components/ui/Select";
+import userServices from "@/services/user";
+import { FormEvent, useState } from "react";
 
 export default function ModalUpdateUser(props: any) {
-  const { updatedUser, setUpdatedUser } = props;
+  const { updatedUser, setUpdatedUser, setUsersData } = props;
+  const [loading, setLoading] = useState(false)
+
+  const handleUpdateUser = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setLoading(true);
+    const form: any = event.target as HTMLFormElement;
+    const data = {
+      role: form.role.value,
+    };
+
+    const result = await userServices.updateUsers(updatedUser.id, data);
+
+    console.log(result)
+
+    if (result.status === 200) {
+      setLoading(false);
+      setUpdatedUser({})
+      const { data } = await userServices.getAllUsers();
+      setUsersData(data.data)
+    } 
+    
+    else {
+      setLoading(false);
+    }
+  };
 
   return (
     <div>
@@ -12,7 +39,7 @@ export default function ModalUpdateUser(props: any) {
         <h1 className="text-3xl font-bold">
           Update <span>{updatedUser.fullname}</span>
         </h1>
-        <form action="">
+        <form onSubmit={handleUpdateUser}>
           <div className="my-5 text-dark">
             <p className="text-md font-semibold mb-2">Email</p>
             <div className="ml-3">

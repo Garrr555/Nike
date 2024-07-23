@@ -1,4 +1,4 @@
-import { addDoc, collection, doc, getDoc, getDocs, getFirestore, query, updateDoc, where } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, getFirestore, query, updateDoc, where } from "firebase/firestore";
 import app from "./init";
 import { error } from "console";
 
@@ -60,4 +60,15 @@ export async function updateData(collectionName:string, id:string, data:any, cal
   })
 }
 
+export async function deleteData(collectionName: string, id: string, callback: Function) {
+  const docRef = doc(firestore, collectionName, id)
+
+  await deleteDoc(docRef)
+    .then(() => {
+      callback(true)
+    })
+    .catch(() => {
+      callback(false)
+    })
+}
 
