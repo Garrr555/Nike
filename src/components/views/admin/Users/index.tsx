@@ -42,10 +42,10 @@ export default function UserAdminView(props: PropsType) {
                 <th className="py-1 border border-[#ddd] bg-[#ddd] font-semibold">
                   Phone
                 </th>
-                <th className="py-1 border border-[#ddd] bg-[#ddd] font-semibold">
+                <th className="py-1 border border-[#ddd] bg-[#ddd] font-semibold ">
                   Role
                 </th>
-                <th className="py-1 border border-[#ddd] bg-[#ddd] font-semibold">
+                <th className="py-1 border border-[#ddd] bg-[#ddd] font-semibold text-center">
                   Action
                 </th>
               </tr>
@@ -61,17 +61,17 @@ export default function UserAdminView(props: PropsType) {
                   <td>{user.email}</td>
                   <td>{user.phone}</td>
                   <td>{user.role}</td>
-                  <td className="flex gap-2 items-center mb-2">
+                  <td className="flex gap-2 items-center mb-2 justify-center">
                     <Button
                       type="button"
-                      variant="bg-primary w-20"
+                      variant="bg-dark w-20 rounded-md hover:bg-white border hover:text-primary hover:border hover:border-primary transition-all ease-in-out duration-300"
                       onClick={() => setUpdatedUser(user)}
                     >
-                      <i className="bx bxs-edit text-xl text-dark"></i>
+                      <i className="bx bxs-edit text-xl "></i>
                     </Button>
                     <Button
                       type="button"
-                      variant="bg-red-700 w-20"
+                      variant="bg-red-700 w-20 rounded-md hover:bg-white border hover:text-red-700 hover:border hover:border-red-700 transition-all ease-in-out duration-300"
                       onClick={() => setDeletedUser(user)}
                     >
                       <i className="bx bxs-trash text-xl"></i>
@@ -83,20 +83,24 @@ export default function UserAdminView(props: PropsType) {
           </table>
         </div>
       </AdminLayout>
-      {Object.keys(updatedUser).length && (
-        <ModalUpdateUser
-          updatedUser={updatedUser}
-          setUpdatedUser={setUpdatedUser}
-          setUsersData={setUsersData}
-        />
-      )}
-      {Object.keys(deletedUser).length && (
-        <ModalDeleteUser
-          deletedUser={deletedUser}
-          setDeletedUser={setDeletedUser}
-          setUsersData={setUsersData}
-        />
-      )}
+      <div className={`${Object.keys(updatedUser).length ? "" : "hidden"}`}>
+        {Object.keys(updatedUser).length && (
+          <ModalUpdateUser
+            updatedUser={updatedUser}
+            setUpdatedUser={setUpdatedUser}
+            setUsersData={setUsersData}
+          />
+        )}
+      </div>
+      <div className={`${Object.keys(deletedUser).length ? "" : "hidden"}`}>
+        {Object.keys(deletedUser).length && (
+          <ModalDeleteUser
+            deletedUser={deletedUser}
+            setDeletedUser={setDeletedUser}
+            setUsersData={setUsersData}
+          />
+        )}
+      </div>
     </>
   );
 }
