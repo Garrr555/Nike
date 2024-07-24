@@ -1,5 +1,7 @@
 import { deleteData, retrieveData, updateData } from "@/lib/firebase/service";
 import type { NextApiRequest, NextApiResponse } from "next";
+import jwt from "jsonwebtoken";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {
@@ -15,42 +17,78 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .json({ status: true, statusCode: 200, message: "success", data });
   }
   else if (req.method === "PUT"){
-    const {id, data} = req.body
-    await updateData ('users', id, data, (result: boolean) => {
-      if(result){
-        res.status(200).json({
-          status: true,
-          statusCode: 200,
-          message: 'success',
-        })
-      }
-      else{
-          res.status(400).json({
+    const {user}: any = req.query
+    const {data} = req.body
+    const token = req.headers.authorization?.split(' ')[1]
+    console.log(user)
+    console.log(data)
+    console.log(token)
+
+    jwt.verify(
+      token,
+      process.env.NEXTAUTH_SECRET || "",
+      async (err: any, decoded: any) => {
+        if (decoded && decoded.role === "admin") {
+         await updateData("users", user[1], data, (result: boolean) => {
+           if (result) {
+             res.status(200).json({
+               status: true,
+               statusCode: 200,
+               message: "success",
+             });
+           } else {
+             res.status(400).json({
+               status: false,
+               statusCode: 400,
+               message: "failed",
+             });
+           }
+         });
+        } else {
+          res.status(403).json({
             status: false,
-            statusCode: 400,
-            message: "failed",
+            statusCode: 403,
+            message: "lu tuh gk admin, gk usah hapus data anjg",
           });
+        }
       }
-    })
+    );
+
+    
   }
   else if(req.method === "DELETE"){
     const {user}: any = req.query
-    await deleteData('users', user[1], (result: boolean) => {
-      if(result){
-        res.status(200).json({
-          status: true,
-          statusCode: 200,
-          message: "success"
-        })
+
+    const token = req.headers.authorization?.split(' ')[1]
+    console.log(token)
+    jwt.verify(token, process.env.NEXTAUTH_SECRET || '', async (err: any, decoded: any) => {
+      if(decoded && decoded.role === 'admin'){
+        await deleteData("users", user[1], (result: boolean) => {
+          if (result) {
+            res.status(200).json({
+              status: true,
+              statusCode: 200,
+              message: "success",
+            });
+          } else {
+            res.status(400).json({
+              status: false,
+              statusCode: 400,
+              message: "failed",
+            });
+          }
+        });
       }
       else{
-         res.status(400).json({
-           status: false,
-           statusCode: 400,
-           message: "failed",
-         });
+        res.status(403).json({
+          status: false,
+          statusCode: 403,
+          message: "lu tuh gk admin, gk usah hapus data anjg"
+        })
       }
     })
+    
+
   }
 }
 

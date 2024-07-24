@@ -4,6 +4,7 @@ import { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google"
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
+import jwt, { sign } from 'jsonwebtoken'
 
 
 const authOptions: NextAuthOptions = {
@@ -85,6 +86,12 @@ const authOptions: NextAuthOptions = {
       if ("role" in token) {
         session.user.role = token.role;
       }
+
+      const accessToken = jwt.sign(token, process.env.NEXTAUTH_SECRET || '', {
+        algorithm: 'HS256'
+      });
+      
+      session.accessToken = accessToken
 
       return session;
     },
