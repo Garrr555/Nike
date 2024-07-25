@@ -10,12 +10,12 @@ const listSidebarItem = [
   {
     title: "Dashboard",
     url: "/member",
-    icon: "bxs-dashboard",
+    icon: "bx bxs-user",
   },
   {
-    title: "Order",
-    url: "/member/order",
-    icon: "bxs-box",
+    title: "Orders",
+    url: "/member/orders",
+    icon: "bx bxs-cart-alt",
   },
   {
     title: "Profile",
@@ -29,7 +29,7 @@ export default function MemberLayout(props: PropsType) {
 
   return (
     <div className="flex">
-      <Sidebar lists={listSidebarItem} />
+      <Sidebar lists={listSidebarItem} role="Member"/>
       <div className="w-full py-10 px-14">{children}</div>
     </div>
   );

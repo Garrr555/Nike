@@ -8,7 +8,7 @@ import "boxicons/css/boxicons.min.css";
 import { useRouter } from "next/router";
 config.autoAddCss = false;
 
-const disableNavbar = ["auth", "admin"];
+const disableNavbar = ["auth", "admin", "member"];
 
 export default function App({
   Component,

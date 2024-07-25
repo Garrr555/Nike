@@ -22,11 +22,11 @@ const listSidebarItem = [
     url: "/admin/users",
     icon: "bxs-group",
   },
-  {
-    title: "Profile",
-    url: "/admin/profile",
-    icon: "bxs-group",
-  },
+  // {
+  //   title: "Profile",
+  //   url: "/admin/profile",
+  //   icon: "bxs-group",
+  // },
 ];
 
 export default function AdminLayout(props: PropsType){
@@ -35,7 +35,7 @@ export default function AdminLayout(props: PropsType){
 
     return (
       <div className="flex">
-        <Sidebar lists={listSidebarItem} />
+        <Sidebar lists={listSidebarItem} role="Admin"/>
         <div className="w-full py-10 px-14">{children}</div>
       </div>
     );
