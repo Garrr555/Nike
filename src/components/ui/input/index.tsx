@@ -18,7 +18,7 @@ export default function Input(props: Propstype) {
 
   return (
     <div>
-      <div className="flex items-center border border-gray-100 rounded-lg overflow-hidden">
+      <div className="flex items-center rounded-lg overflow-hidden">
         <label htmlFor={name} className="">
           {label}
         </label>

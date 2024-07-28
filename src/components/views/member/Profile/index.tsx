@@ -1,10 +1,106 @@
 import MemberLayout from "@/components/layouts/MemberLayout";
+import Button from "@/components/ui/button";
+import Input from "@/components/ui/input";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
+import { useState } from "react";
 
-export default function ProfileMemberView() {
+export default function ProfileMemberView({ profile }: any) {
+  const session = useSession();
+  console.log(session);
+  console.log(profile);
+
+  const [visible, setVisible] = useState(true)
+
+  function handleVisible(){
+    setVisible(!visible)
+  }
+
   return (
     <MemberLayout>
-      <div>
-        <div>Profile Member Page</div>
+      <h1 className="text-[32px] font-bold">Profile</h1>
+      <div className="flex gap-5 mt-10">
+        <div className="w-[25%] flex flex-col items-center justify-center border shadow-lg rounded-xl p-10 ">
+          <Image
+            className="rounded-full"
+            src={profile.image}
+            alt="profile"
+            width={200}
+            height={200}
+          />
+          <label htmlFor="upload-image" className="mt-5 bg-[#eee] flex flex-col items-center justify-center text-center gap-5 p-5 cursor-pointer rounded-lg">
+            <p>
+              {" "}
+              Upload a new avatar, Large image will be resized automatically
+            </p>
+            <p>
+              Maximum upload size is <b>1 MB</b>
+            </p>
+          </label>
+          <input
+            type="file"
+            name="image"
+            id="upload-image"
+            className="opacity-0 absolute -z-10"
+          />
+        </div>
+        <div className="w-[75%]  border shadow-lg py-5 rounded-xl">
+          <form action="">
+            <div className="p-10">
+              <div className="font-semibold">Fullname</div>
+              <div className="pl-3 bg-gray-200 rounded-lg">
+                <Input
+                  name="fullname"
+                  defaultValue={profile.fullname}
+                  type="text"
+                  disable={true}
+                  visible={false}
+                />
+              </div>
+            </div>
+            <div className="py-5 px-10">
+              <div className="font-semibold">Email</div>
+              <div className="pl-3 bg-gray-200 rounded-lg">
+                <Input
+                  name="email"
+                  defaultValue={profile.email}
+                  type="email"
+                  disable={true}
+                  visible={false}
+                />
+              </div>
+            </div>
+            <div className="py-5 px-10">
+              <div className="font-semibold">Phone</div>
+              <div className="pl-3 bg-gray-200 rounded-lg">
+                <Input
+                  name="phone"
+                  defaultValue={profile.phone}
+                  type="text"
+                  disable={true}
+                  visible={false}
+                />
+              </div>
+            </div>
+            {/* <div className="py-5 px-10">
+            <div className="font-semibold">Password</div>
+            <div className="pl-3 bg-gray-200 rounded-lg">
+             <Input
+              name="password"
+              defaultValue={profile.password}
+              type="password"
+              visible={visible}
+              handleVisible={handleVisible}
+              disable={true}
+            /></div>
+          </div> */}
+            <div className="w-full px-10 flex justify-end">
+              <Button type="submit" variant="bg-primary font-semibold">
+                Update Profile
+              </Button>
+            </div>
+          </form>
+        </div>
       </div>
     </MemberLayout>
   );
