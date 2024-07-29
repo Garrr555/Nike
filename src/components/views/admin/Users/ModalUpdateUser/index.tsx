@@ -38,8 +38,8 @@ export default function ModalUpdateUser(props: any) {
   return (
     <div>
       <Modal onClose={() => setUpdatedUser({})}>
-        <h1 className="text-3xl font-bold">
-          Update <span>{updatedUser.fullname}</span>
+        <h1 className="text-3xl font-semibold">
+          Update [<span className="font-bold">{updatedUser.fullname}</span>]
         </h1>
         <form onSubmit={handleUpdateUser}>
           <div className="my-5 text-dark">
@@ -101,7 +101,7 @@ export default function ModalUpdateUser(props: any) {
             ></Select>
           </div>
           <div className=" flex justify-end items-center">
-            <Button type="submit" variant="bg-dark ">
+            <Button type="submit" variant="bg-primary ">
               Update
             </Button>
           </div>

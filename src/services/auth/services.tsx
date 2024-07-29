@@ -12,6 +12,7 @@ export async function signUp(
     role?: string; //role menjadi pilihan opsional saja
     created_at?: Date;
     updated_at?: Date;
+    image?: string;
   },
   callback: Function
 ) {
@@ -24,6 +25,7 @@ export async function signUp(
       userData.role = "member";
     }
 
+    userData.image = ''
     userData.password = await bcrypt.hash(userData.password, 10);
     userData.created_at = new Date();
     userData.updated_at = new Date();
