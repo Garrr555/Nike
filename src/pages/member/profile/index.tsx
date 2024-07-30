@@ -22,6 +22,8 @@ export default function ProfilePage() {
     }
   }, [profile, session]);
 
+  console.log(profile)
+
   return (
     <div>
       <ProfileMemberView profile={profile} setProfile={setProfile} session={session}/>

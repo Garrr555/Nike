@@ -25,7 +25,7 @@ export async function signUp(
       userData.role = "member";
     }
 
-    userData.image = ''
+    userData.image = '';
     userData.password = await bcrypt.hash(userData.password, 10);
     userData.created_at = new Date();
     userData.updated_at = new Date();

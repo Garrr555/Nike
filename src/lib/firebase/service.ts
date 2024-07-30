@@ -96,7 +96,7 @@ export async function uploadFile(userid: string, file: any, callback: Function) 
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL: any) => {
           console.log(downloadURL);
-          callback(downloadURL)
+          callback(true, downloadURL)
         });
       },
     )

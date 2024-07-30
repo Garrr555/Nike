@@ -13,8 +13,6 @@ export default function ProfileMemberView({ profile, setProfile, session }: any)
 
   const [changeImage, setChangeImage] = useState<any>({})
   const [isLoading, setIsLoading] = useState(false)
-  console.log(changeImage)
-  console.log(changeImage.name)
 
   console.log(profile);
 
@@ -24,16 +22,18 @@ export default function ProfileMemberView({ profile, setProfile, session }: any)
     setVisible(!visible)
   }
 
-  function handleChangeProfilePicture(e: any){
+  const handleChangeProfilePicture = (e: any) => {
     e.preventDefault()
     setIsLoading(true)
     const file = e.target[0]?.files[0]
     if(file){
       uploadFile(profile.id, file, async (status: boolean, newImageURL: string) => {
+        console.log(status)
         if(status){
           const data = {
             image: newImageURL,
           };
+
           const result = await userServices.updateProfile(
             profile.id,
             data,
@@ -48,9 +48,11 @@ export default function ProfileMemberView({ profile, setProfile, session }: any)
               ...profile,
               image: newImageURL,
             });
+            console.log(profile)
             setChangeImage({});
             e.target[0].value = "";
-          } else {
+          } 
+          else {
             setIsLoading(false);
           } 
         }
@@ -61,6 +63,9 @@ export default function ProfileMemberView({ profile, setProfile, session }: any)
       })
     }
   }
+
+  console.log(changeImage);
+  console.log(changeImage.name);
 
   return (
     <MemberLayout>
@@ -76,13 +81,9 @@ export default function ProfileMemberView({ profile, setProfile, session }: any)
               height={200}
             />
           ) : (
-            <Image
-              className="rounded-full w-[80%] h-[80%]"
-              src={profile.image}
-              alt="profile"
-              width={200}
-              height={200}
-            />
+            <div className="bg-[#eee] rounded-full w-[200px] h-[200px] flex items-center justify-center text-6xl font-bold">
+            {profile?.fullname?.charAt(0)}
+            </div>
           )}
           <form onSubmit={handleChangeProfilePicture} className="w-full">
             <label
