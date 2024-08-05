@@ -25,8 +25,10 @@ export default function Input(props: Propstype) {
         <input
           name={name}
           id={name}
-          type={`${visible ? type : `text`}`}
-          className="w-full shadow-lg  bg-gray-200 p-1 focus:outline-none"
+          type={visible? 'password' : ''}
+          className={`w-full shadow-lg  bg-gray-200 p-1 focus:outline-none ${
+            disable ? "opacity-60" : ""
+          }`}
           placeholder={placeholder}
           defaultValue={defaultValue}
           disabled={disable}
@@ -34,8 +36,14 @@ export default function Input(props: Propstype) {
         <div
           onClick={handleVisible}
           className={`bg-gray-100 py-1 ${visible ? "px-[7px]" : "px-2"} ${
-            disable ? "opacity-70" : ""
-          } ${name === "password" ? "" : "hidden"}`}
+            disable ? "opacity-60" : ""
+          } ${
+            name === "password" ||
+            name === "old-password" ||
+            name === "new-password"
+              ? ""
+              : "hidden"
+          }`}
         >
           {visible ? (
             <FontAwesomeIcon icon={faEyeSlash} />
