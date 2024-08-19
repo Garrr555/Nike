@@ -17,7 +17,7 @@ export default function withAuth(
     const pathname = req.nextUrl.pathname.split("/")[1];
 
     if (requireAuth.includes(pathname)) {
-      const token = await getToken({
+      const token : any = await getToken({
         req,
         secret: process.env.NEXTAUTH_SECRET,
       });

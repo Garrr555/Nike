@@ -6,6 +6,7 @@ import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import "boxicons/css/boxicons.min.css";
 import { useRouter } from "next/router";
+import Toaster from "@/components/ui/Toaster";
 config.autoAddCss = false;
 
 const disableNavbar = ["auth", "admin", "member"];
@@ -21,6 +22,7 @@ export default function App({
       <div>
         {!disableNavbar.includes(pathname.split("/")[1]) && <Navbar />}
         <Component {...pageProps} />
+        <Toaster message="Success update Profile"/>
       </div>
     </SessionProvider>
   );

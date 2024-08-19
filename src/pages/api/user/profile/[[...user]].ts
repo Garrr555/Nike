@@ -10,7 +10,7 @@ export default async function Handler(
   
     if(req.method === 'GET'){
 
-        const token = req.headers.authorization?.split(' ')[1];
+        const token : any = req.headers.authorization?.split(' ')[1];
         if(token){
             jwt.verify(
                 token, 
@@ -51,7 +51,7 @@ export default async function Handler(
     else if(req.method === 'PUT'){
         const { user }: any = req.query;
         const { data } = req.body;
-        const token = req.headers.authorization?.split(" ")[1];
+        const token:any = req.headers.authorization?.split(" ")[1];
         console.log(user);
         console.log(data);
         console.log(token);

@@ -261,7 +261,6 @@ export default function ProfileMemberView({
               <div className="pl-3 bg-gray-200 rounded-lg">
                 <Input
                   name="old-password"
-                  // defaultValue={profile.password}
                   type="password"
                   visible={visible}
                   handleVisible={handleVisible}
@@ -274,7 +273,6 @@ export default function ProfileMemberView({
               <div className="pl-3 bg-gray-200 rounded-lg">
                 <Input
                   name="new-password"
-                  // defaultValue={profile.password}
                   type="password"
                   visible={visible2}
                   handleVisible={handleVisible2}
