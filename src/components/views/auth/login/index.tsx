@@ -3,112 +3,119 @@ import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { FormEvent, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash} from "@fortawesome/free-solid-svg-icons";
-import { faGoogle } from "@fortawesome/free-brands-svg-icons";
-import Input from "@/components/ui/input";
-import Button from "@/components/ui/button";
-import AuthLayout from "@/components/layouts/AuthLayout";
+import GoogleBtn from "../../../layouts/googlebtn";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { IoMdLogIn } from "react-icons/io";
+import { useSearchParams } from "next/navigation";
 
 export default function LoginView() {
-  const [visible, setVisible] = useState(true);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
-  function handleVisible() {
-    setVisible(!visible);
-  }
-
-  const { push, query } = useRouter();
-
-  const callbackUrl: any = query.callbackUrl || "/";
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setLoading(true);
+    setIsLoading(true);
     setError("");
-    const form = event.target as HTMLFormElement;
-
     try {
+      const form = event.target as HTMLFormElement;
       const res = await signIn("credentials", {
         redirect: false,
         email: form.email.value,
         password: form.password.value,
         callbackUrl,
       });
-
       if (!res?.error) {
-        setLoading(false);
-        form.reset();
-        push(callbackUrl);
+        setIsLoading(false);
+        event.target.reset();
+        router.push(callbackUrl);
       } else {
-        setLoading(false);
-        setError("Email or Password incorrect");
+        setIsLoading(false);
+        setError("Invalid email or password");
       }
     } catch (error) {
-      setLoading(false);
-      setError("Email or Password incorrect");
+      setIsLoading(false);
+      setError("Invalid email or password");
     }
   };
 
   return (
-    <AuthLayout
-      title="Login"
-      link="/auth/register"
-      linkText="Don't have an account? "
-      error={error}
-    >
-      <form action="" className="" onSubmit={handleSubmit}>
-        <div className="my-5">
-          <p className="">Email</p>
-          <Input
-            label=""
-            name="email"
-            type="email"
-            placeholder="exampel@gmail.com"
-            visible={false}
-            handleVisible=""
-          />
-        </div>
-        <div className="my-5">
-          <p className="">Password</p>
-          <div className="">
-            <Input
-              label=""
-              name="password"
-              type="password"
-              placeholder="password"
-              visible={visible}
-              handleVisible={handleVisible}
+    <div className="flex items-center justify-center min-h-screen bg-primary">
+      <div className="w-full max-w-md bg-secondary p-6 rounded-xl shadow-lg">
+        <h2 className="text-center text-accent text-3xl font-bold mb-4">
+          Login
+        </h2>
+        {error && <p className="text-red-500 text-center">{error}</p>}
+        <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
+          <div className="relative">
+            <label className="block text-white/80">Email</label>
+            {/* <div className="absolute left-3 top-9 text-white/60 text-xl">
+              <MdEmail />
+            </div> */}
+            <input
+              name="email"
+              id="email"
+              type="email"
+              className="w-full px-4 py-2 focus:outline-none focus:ring-1 focus:ring-accent bg-primary rounded-xl"
+              placeholder={`exampel@gmail.com`}
             />
-            <div className={`p-2 cursor-pointer w-5 rounded-sm mt-1`}></div>
           </div>
-        </div>
-        <div className="">
-          <Button type="submit" variant="bg-gray-800 w-full">
-            {" "}
-            {loading ? `Loading...` : `Login`}
-          </Button>
 
-          <hr className="my-5" />
+          <div className="relative">
+            <label className="block text-white/80">Password</label>
+            {/* <div className="absolute left-3 top-9 text-white/60 text-xl">
+              <RiLockPasswordFill />
+            </div> */}
+            <input
+              name="password"
+              id="password"
+              type={showPassword ? "text" : "password"}
+              className="w-full px-4 py-2 focus:outline-none focus:ring-1 focus:ring-accent bg-primary rounded-xl"
+              placeholder="***********"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-9 text-white/60"
+            >
+              {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
+            </button>
+          </div>
 
-          <Button
-            type="button"
-            onClick={() => signIn("google", { callbackUrl, redirect: false })}
-            variant="bg-gray-800 w-full"
+          <button
+            type="submit"
+            className="w-full bg-accent text-primary py-2 rounded-xl hover:bg-accent-hover"
           >
-            {loading ? (
-              `Loading...`
+            {isLoading ? (
+              "Loading..."
             ) : (
-              <div className="">
-                <FontAwesomeIcon icon={faGoogle} />
-                oogle
+              <div className="flex items-center justify-center font-bold">
+                <span className="text-2xl">
+                  <IoMdLogIn />
+                </span>{" "}
+                Login
               </div>
             )}
-          </Button>
-        </div>
-      </form>
-    </AuthLayout>
+          </button>
+        </form>
+        <br />
+        <hr />
+        <br />
+        <GoogleBtn
+          onClick={() => signIn("google", { callbackUrl, redirect: false })}
+        />
 
+        <p className="mt-4 text-center text-white/80">
+          Don't have an account?{" "}
+          <Link href="/auth/register" className="text-accent">
+            Register here
+          </Link>
+        </p>
+      </div>
+    </div>
   );
 }

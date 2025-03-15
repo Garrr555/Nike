@@ -1,5 +1,8 @@
+'use client'
+
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
 
 type Propstype = {
     label?: string,
@@ -16,42 +19,24 @@ export default function Input(props: Propstype) {
 
     const {label, name, type, placeholder, visible, handleVisible, defaultValue, disable} = props
 
-  return (
-    <div>
-      <div className="flex items-center rounded-lg overflow-hidden">
-        <label htmlFor={name} className="">
-          {label}
-        </label>
-        <input
-          name={name}
-          id={name}
-          type={visible? 'password' : ''}
-          className={`w-full shadow-lg  bg-gray-200 p-1 focus:outline-none ${
-            disable ? "opacity-60" : ""
-          }`}
-          placeholder={placeholder}
-          defaultValue={defaultValue}
-          disabled={disable}
-        />
-        <div
-          onClick={handleVisible}
-          className={`bg-gray-100 py-1 ${visible ? "px-[7px]" : "px-2"} ${
-            disable ? "opacity-60" : ""
-          } ${
-            name === "password" ||
-            name === "old-password" ||
-            name === "new-password"
-              ? ""
-              : "hidden"
-          }`}
-        >
-          {visible ? (
-            <FontAwesomeIcon icon={faEyeSlash} />
-          ) : (
-            <FontAwesomeIcon icon={faEye} />
-          )}
-        </div>
-      </div>
-    </div>
-  );
+    const [value, setValue] = useState(placeholder || "");
+
+   return (
+     <div className="flex flex-col my-4">
+       <label htmlFor={label} className="mx-2">
+         {label}
+       </label>
+       <input
+         disabled={disable}
+         id={name}
+         name={name}
+         type={type}
+         className={`${
+           disable && "text-gray-500"
+         } py-2 px-3 focus:outline-none focus:ring-2 focus:ring-accent text-white/80 bg-primary rounded-xl`}
+         value={value}
+         onChange={(e) => setValue(e.target.value)}
+       />
+     </div>
+   );
 }

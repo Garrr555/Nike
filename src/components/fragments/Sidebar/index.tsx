@@ -1,3 +1,4 @@
+import LoginOutView from "@/components/layouts/loginout";
 import Button from "@/components/ui/button";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
@@ -18,23 +19,33 @@ export default function Sidebar(props: PropsType){
     const {pathname} = useRouter()
 
     return (
-      <div className="bg-dark text-white p-5 w-[300px] h-[100vh] flex flex-col justify-between">
+      <div className="w-64 h-screen bg-gray-900 border-r border-gray-800 text-white/80 p-6 flex flex-col justify-between fixed top-0 left-0">
         <div>
-          <h1 className="text-2xl font-semibold mb-10 text-center">{role} Panel</h1>
-          {lists.map((list, index) => (
-            <Link
-            href={list.url}
-              className={`text-lg font-semibold my-3 flex items-center gap-2 rounded-lg p-1 transition-all ease-in-out duration-300 hover:bg-white hover:text-primary cursor-pointer ${pathname === list.url && 'bg-white text-primary'}`}
-              key={list.title}
-            >
-              <i className={` ml-4 text-3xl bx ${list.icon}`} />
-              <h2>{list.title}</h2>
+          <div className="text-2xl mb-8">
+            <Link href="/">
+              Admin Marga<span className="text-accent">.</span>
             </Link>
-          ))}
+          </div>
+          <div className="space-y-4 flex flex-col gap-0">
+            {lists.map((item, i) => (
+              <Link
+                key={i}
+                href={item.url}
+                className={`${
+                  item.url === pathname && "text-primary bg-accent  px-3"
+                } py-2 rounded-xl capitalize font-medium  transition-all duration-500 ease-in-out flex gap-2 hover:bg-accent-hover hover:text-primary hover:px-3`}
+              >
+                <div className="text-2xl">
+                  <item.icon />
+                </div>
+                {item.title}
+              </Link>
+            ))}
+          </div>
         </div>
 
         <div>
-            <Button type="button" variant="bg-primary text-white w-60 " onClick={() => signOut()}>Logout</Button>
+          <LoginOutView classname={"text-center"} />
         </div>
       </div>
     );

@@ -7,34 +7,16 @@ export default async function Handler (req: NextApiRequest, res: NextApiResponse
             req.body,
             (status: boolean) => {
                 if(status){
-                    res
-                      .status(200)
-                      .json({
-                        status: true,
-                        statusCode: 200,
-                        message: "success",
-                      });
+                    res.status(200).json({status: true, statusCode: 200, message: "success",});
                 }
                 else{
-                    res
-                      .status(400)
-                      .json({
-                        status: false,
-                        statusCode: 400,
-                        message: "failed",
-                      });
+                    res.status(400).json({status: false, statusCode: 400, message: "failed",});
                 }
             }
         )
     }
     else{
-        res
-          .status(405)
-          .json({
-            status: false,
-            statusCode: 405,
-            message: "Methode not allowed",
-          });
+        res.status(405).json({status: false, statusCode: 405, message: "Methode not allowed",});
     }
 
     res.status(200).json({status: true, message: "success"})

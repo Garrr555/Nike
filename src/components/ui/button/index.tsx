@@ -2,24 +2,23 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 
 type propsType = {
-    type:  'button' | 'submit' | 'reset' | undefined,
-    onClick?: () => void,
-    children: React.ReactNode, 
-    variant?: string,
-}
+  type: "button" | "submit" | "reset" | undefined;
+  onClick?: () => void;
+  children: React.ReactNode;
+  textcolor?: string;
+  bgcolor?: string;
+};
 
 export default function Button(props: propsType) {
-  const { type, onClick, children, variant} = props;
+  const { type, onClick, children, textcolor, bgcolor } = props;
 
   return (
-    <div>
-      <button
-        type={type}
-        onClick={onClick}
-        className={`p-2 rounded-md text-white mt-2 flex justify-center font-semibold mx-auto ${variant}`}
-      >
-        {children}
-      </button>
-    </div>
+    <button
+      onClick={onClick}
+      type={type}
+      className={` px-5 py-2 ${textcolor} ${bgcolor} font-semibold hover:opacity-80 transition-all duration-500 ease-in-out`}
+    >
+      {children}
+    </button>
   );
 }

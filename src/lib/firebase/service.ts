@@ -26,6 +26,8 @@ const firestore = getFirestore(app);
 const storage = getStorage(app);
 
 // retrieveData, retrieveDataById, retrieveDataByField, addData adalah fungsi yang berhubungan dengan Firebase
+
+// retrieveData untuk mengambil data
 export async function retrieveData(collectionName: string) {
   const snapshot = await getDocs(collection(firestore, collectionName));
   const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
@@ -55,6 +57,7 @@ export async function retrieveDataByField(
   return data;
 }
 
+// addData untuk menambahkan data
 export async function addData(
   collectionName: string,
   data: any,
@@ -71,6 +74,7 @@ export async function addData(
     });
 }
 
+// updateData untuk memperbarui data
 export async function updateData(
   collectionName: string,
   id: string,
@@ -87,6 +91,7 @@ export async function updateData(
     });
 }
 
+// deleteData untuk menghapus data
 export async function deleteData(
   collectionName: string,
   id: string,
@@ -103,6 +108,7 @@ export async function deleteData(
     });
 }
 
+// uploadFile untuk mengupload file
 export async function uploadFile(
   userid: string,
   file: any,

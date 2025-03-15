@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import ModalUpdateUser from "./ModalUpdateUser";
 import userServices from "@/services/user";
 import ModalDeleteUser from "./ModalDeleteUser";
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 type PropsType = {
   users: any;
@@ -11,8 +12,8 @@ type PropsType = {
 
 export default function UserAdminView(props: PropsType) {
   const [usersData, setUsersData] = useState([]);
-  const [updatedUser, setUpdatedUser] = useState<any>({});
-  const [deletedUser, setDeletedUser] = useState<any>({});
+  const [updateUser, setUpdateUser] = useState<any>({});
+  const [deleteUser, setDeleteUser] = useState<any>({});
   const { users } = props;
   console.log(users);
 
@@ -23,58 +24,48 @@ export default function UserAdminView(props: PropsType) {
   return (
     <>
       <AdminLayout>
-        <div className="">
-          <div className="text-4xl font-bold mb-10 text-primary">
+        <div>
+          <h1 className="text-accent text-3xl font-semibold mb-2">
             User Management
-          </div>
-          <table className="w-full border-spacing-0 border-collapse border border-[#ddd] ">
-            <thead className="">
-              <tr className="text-xl text-left">
-                <th className="py-1 border border-[#ddd] bg-[#ddd] font-semibold pl-2">
-                  #
-                </th>
-                <th className="py-1 border border-[#ddd] bg-[#ddd] font-semibold">
-                  Fullname
-                </th>
-                <th className="py-1 border border-[#ddd] bg-[#ddd] font-semibold">
-                  Email
-                </th>
-                <th className="py-1 border border-[#ddd] bg-[#ddd] font-semibold">
-                  Phone
-                </th>
-                <th className="py-1 border border-[#ddd] bg-[#ddd] font-semibold ">
-                  Role
-                </th>
-                <th className="py-1 border border-[#ddd] bg-[#ddd] font-semibold text-center">
-                  Action
-                </th>
+          </h1>
+          <table className="w-full border-2 border-gray-900">
+            <thead>
+              <tr className="bg-gray-900">
+                <th className="p-2 font-semibold">No</th>
+                <th className="p-2 text-start font-semibold">Fullname</th>
+                <th className="p-2 text-start font-semibold">Email</th>
+                <th className="p-2 text-start font-semibold">Phone</th>
+                <th className="p-2 font-semibold">Role</th>
+                <th className="p-2 font-semibold">Action</th>
               </tr>
             </thead>
             <tbody>
-              {usersData.map((user: any, index: number) => (
+              {usersData.map((user, index) => (
                 <tr
-                  className="text-md  odd:bg-white even:bg-[#ddd] text-dark font-semibold"
-                  key={user.id}
+                  key={index}
+                  className={index % 2 === 0 ? "bg-gray-800" : "bg-primary"}
                 >
-                  <td className="pl-2">{index + 1}</td>
-                  <td>{user.fullname}</td>
+                  <td className="text-center">{index + 1}</td>
+                  <td className="py-5">{user.fullname}</td>
                   <td>{user.email}</td>
                   <td>{user.phone}</td>
-                  <td>{user.role}</td>
-                  <td className="flex gap-2 items-center mb-2 justify-center">
+                  <td className="text-center">{user.role}</td>
+                  <td className="xl:flex-row flex flex-col items-center justify-center gap-2 py-4">
                     <Button
                       type="button"
-                      variant="bg-dark w-20 rounded-md hover:bg-white border hover:text-primary hover:border hover:border-primary transition-all ease-in-out duration-300"
-                      onClick={() => setUpdatedUser(user)}
+                      textcolor="text-primary text-xl"
+                      bgcolor="bg-accent"
+                      onClick={() => setUpdateUser(user)}
                     >
-                      <i className="bx bxs-edit text-xl "></i>
+                      <FaEdit />
                     </Button>
                     <Button
                       type="button"
-                      variant="bg-red-700 w-20 rounded-md hover:bg-white border hover:text-red-700 hover:border hover:border-red-700 transition-all ease-in-out duration-300"
-                      onClick={() => setDeletedUser(user)}
+                      textcolor="text-white/80 text-xl"
+                      bgcolor="bg-red-500"
+                      onClick={() => setDeleteUser(user)}
                     >
-                      <i className="bx bxs-trash text-xl"></i>
+                      <FaTrash />
                     </Button>
                   </td>
                 </tr>
@@ -83,24 +74,21 @@ export default function UserAdminView(props: PropsType) {
           </table>
         </div>
       </AdminLayout>
-      <div className={`${Object.keys(updatedUser).length ? "" : "hidden"}`}>
-        {Object.keys(updatedUser).length && (
-          <ModalUpdateUser
-            updatedUser={updatedUser}
-            setUpdatedUser={setUpdatedUser}
-            setUsersData={setUsersData}
-          />
-        )}
-      </div>
-      <div className={`${Object.keys(deletedUser).length ? "" : "hidden"}`}>
-        {Object.keys(deletedUser).length && (
-          <ModalDeleteUser
-            deletedUser={deletedUser}
-            setDeletedUser={setDeletedUser}
-            setUsersData={setUsersData}
-          />
-        )}
-      </div>
+
+      {Object.keys(updateUser).length > 0 && (
+        <ModalUpdateUser
+          updatedUser={updateUser}
+          setUpdatedUser={setUpdateUser}
+          setUsersData={setUsersData}
+        />
+      )}
+      {Object.keys(deleteUser).length > 0 && (
+        <ModalDeleteUser
+          deletedUser={deleteUser}
+          setDeletedUser={setDeleteUser}
+          setUsersData={setUsersData}
+        />
+      )}
     </>
   );
 }

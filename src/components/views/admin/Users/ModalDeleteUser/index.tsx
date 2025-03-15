@@ -18,18 +18,17 @@ export default function ModalDeleteUser(props:any){
 
     return (
       <Modal onClose={() => setDeletedUser({})}>
-        <div className="">
-          <div className="text-xl font-semibold">Are You Sure?</div>
-          <div className="flex justify-start">
-            <Button
-              variant="bg-red-700 text-sm font-semibold px-3 py-2 w-20"
-              type="button"
-              onClick={() => handleDelete()}
-            >
-              Delete
-            </Button>
-          </div>
-        </div>
+        <h1 className="text-2xl font-semibold my-5">
+          Delete <span className="text-accent">{deletedUser.email}</span> ?
+        </h1>
+        <Button
+          type={"button"}
+          onClick={() => handleDelete()}
+          textcolor={"text-white mb-5"}
+          bgcolor={"bg-red-500"}
+        >
+          Delete
+        </Button>
       </Modal>
     );
 }
