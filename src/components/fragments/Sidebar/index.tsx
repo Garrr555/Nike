@@ -3,12 +3,13 @@ import Button from "@/components/ui/button";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { IconType } from "react-icons";
 
 type PropsType ={
     lists: Array<{
         title: string,
         url: string,
-        icon: string,
+        icon: IconType,
     }>,
     role?: string,
 }

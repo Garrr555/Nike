@@ -7,10 +7,11 @@ type propsType = {
   children: React.ReactNode;
   textcolor?: string;
   bgcolor?: string;
+  variant?: string;
 };
 
 export default function Button(props: propsType) {
-  const { type, onClick, children, textcolor, bgcolor } = props;
+  const { type, onClick, children, textcolor, bgcolor, variant } = props;
 
   return (
     <button

@@ -31,7 +31,7 @@ export default function LoginView() {
       });
       if (!res?.error) {
         setIsLoading(false);
-        event.target.reset();
+        (event.target as HTMLFormElement).reset();
         router.push(callbackUrl);
       } else {
         setIsLoading(false);
@@ -110,7 +110,7 @@ export default function LoginView() {
         />
 
         <p className="mt-4 text-center text-white/80">
-          Don't have an account?{" "}
+          Dont have an account?{" "}
           <Link href="/auth/register" className="text-accent">
             Register here
           </Link>

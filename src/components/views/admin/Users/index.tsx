@@ -10,6 +10,13 @@ type PropsType = {
   users: any;
 };
 
+interface User {
+  fullname: string;
+  email: string;
+  phone: string;
+  role: string;
+}
+
 export default function UserAdminView(props: PropsType) {
   const [usersData, setUsersData] = useState([]);
   const [updateUser, setUpdateUser] = useState<any>({});
@@ -40,7 +47,7 @@ export default function UserAdminView(props: PropsType) {
               </tr>
             </thead>
             <tbody>
-              {usersData.map((user, index) => (
+              {usersData.map((user:User, index) => (
                 <tr
                   key={index}
                   className={index % 2 === 0 ? "bg-gray-800" : "bg-primary"}
