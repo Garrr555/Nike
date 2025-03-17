@@ -5,18 +5,19 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { IconType } from "react-icons";
 
-type PropsType ={
-    lists: Array<{
-        title: string,
-        url: string,
-        icon: IconType,
-    }>,
-    role?: string,
-}
+type PropsType = {
+  lists: Array<{
+    title: string;
+    url: string;
+    icon: IconType;
+  }>;
+  role?: string;
+  label: string;
+};
 
 export default function Sidebar(props: PropsType){
 
-    const {lists, role} = props
+    const {lists, role, label} = props
     const {pathname} = useRouter()
 
     return (
@@ -24,7 +25,7 @@ export default function Sidebar(props: PropsType){
         <div>
           <div className="text-2xl mb-8">
             <Link href="/">
-              Admin Marga<span className="text-accent">.</span>
+              {label} Marga<span className="text-accent">.</span>
             </Link>
           </div>
           <div className="space-y-4 flex flex-col gap-0">

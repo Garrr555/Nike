@@ -14,7 +14,7 @@ export default function AdminLayout(props: PropsType){
 
     return (
       <div className="flex">
-        <Sidebar lists={listSideBarAdmin} />
+        <Sidebar label="Admin" lists={listSideBarAdmin} />
         <div className="flex-1 p-6 ml-64">{children}</div>
       </div>
     );

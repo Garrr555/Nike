@@ -40,25 +40,34 @@ export default function ModalUpdateUser(props: any) {
       <Modal onClose={() => setUpdatedUser({})}>
         <h1 className="text-2xl text-accent font-semibold">Update User</h1>
         <form onSubmit={handleUpdateUser}>
-          <Input
-            label="Email"
-            name="email"
-            type="email"
-            placeholder={updatedUser.email}
-            disable={true}
-          />
-          <Input
-            label="Fullname"
-            name="fullname"
-            type="text"
-            placeholder={updatedUser.fullname}
-          />
-          <Input
-            label="Phone"
-            name="phone"
-            type="number"
-            placeholder={updatedUser.phone}
-          />
+          <div className="my-4">
+            <Input
+              label="Email"
+              name="email"
+              type="email"
+              placeholder={updatedUser.email}
+              disable={true}
+            />
+          </div>
+          <div className="my-4">
+            <Input
+              label="Fullname"
+              name="fullname"
+              type="text"
+              placeholder={updatedUser.fullname}
+              disable={true}
+            />
+          </div>
+          <div className="my-4">
+            <Input
+              label="Phone"
+              name="phone"
+              type="number"
+              placeholder={updatedUser.phone}
+              disable={true}
+            />
+          </div>
+
           <Select
             label="Role"
             name="role"

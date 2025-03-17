@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Navbar from "../Navbar";
 import LoginOutView from "@/components/layouts/loginout";
+import UserBtn from "@/components/layouts/userbtn";
 
 export default function Header() {
   return (
@@ -14,13 +15,13 @@ export default function Header() {
         {/* Desktop Navbar */}
         <div className="hidden xl:flex items-center justify-center gap-8">
           <Navbar />
-          <LoginOutView />
+          <UserBtn />
         </div>
 
         {/* Mobile Navbar */}
         <div className="xl:hidden flex items-center justify-center gap-4">
           <Navbar />
-          <LoginOutView />
+          <UserBtn />
         </div>
       </div>
     </header>

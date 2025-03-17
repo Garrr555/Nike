@@ -1,44 +1,52 @@
-type PropsTypes = {
-    variant?: string;
-    message?: string;
-}
+import { useState } from "react";
+import {
+  AiOutlineCheckCircle,
+  AiOutlineCloseCircle,
+  AiOutlineExclamationCircle,
+} from "react-icons/ai";
 
-const toasterVariant:any = {
+type PropsTypes = {
+  variant?: "success" | "error" | "warning";
+  message?: string;
+};
+
+const toasterVariant = {
   success: {
     title: "Success",
-    icon: "bx-check-circle",
+    icon: <AiOutlineCheckCircle className="text-white text-3xl" />,
+    bg: "bg-green-600",
+    border: "border-green-400",
+  },
+  error: {
+    title: "Error",
+    icon: <AiOutlineCloseCircle className="text-white text-3xl" />,
+    bg: "bg-red-600",
+    border: "border-red-400",
+  },
+  warning: {
+    title: "Warning",
+    icon: <AiOutlineExclamationCircle className="text-white text-3xl" />,
+    bg: "bg-yellow-600",
+    border: "border-yellow-400",
   },
 };
 
-export default function Toaster(props: PropsTypes){
-    const {variant = 'success', message} = props
+export default function Toaster({
+  variant = "success",
+  message = "Operation successful!",
+}: PropsTypes) {
+  const { title, icon, bg, border } = toasterVariant[variant];
+  const [lengthBar, setLengthBar] = useState<any>(100);
 
-    console.log(variant)
-
-    function variantClass(e:string){
-        if(variant === e){
-            return 'bg-primary'
-        }
-        else{
-            return ''
-        }
-    }
-    return (
-      <div
-        className={`fixed right-5 bottom-5 z-[9999] border shadow-custom rounded-[10px] py-5 px-10 transform -translate-x-1/2 overflow-hidden ${variantClass('')}`}
-      >
-        <div className="">
-          <div className="">
-            <i className={`bx ${toasterVariant["success"].icon}`}></i>
-          </div>
-          <div className="font-semibold">
-            <p className="">{toasterVariant["success"].title}</p>
-            <p className="">{message}</p>
-          </div>
-        </div>
-        <div
-          className={`w-full h-[6px] absolute bottom-0 left-0 ${variantClass('success')}`}
-        ></div>
+  return (
+    <div
+      className={`fixed right-5 bottom-5 z-[9999] flex items-center gap-3 px-4 py-3 rounded-lg shadow-lg text-white border-l-4 ${bg} ${border}`}
+    >
+      {icon}
+      <div>
+        <strong className="block">{title}</strong>
+        <span className="text-sm">{message}</span>
       </div>
-    );
+    </div>
+  );
 }

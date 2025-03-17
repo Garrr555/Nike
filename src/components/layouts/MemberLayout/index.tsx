@@ -12,7 +12,7 @@ export default function MemberLayout(props: PropsType) {
 
   return (
     <div className="flex">
-      <Sidebar lists={listSideBarMember} />
+      <Sidebar label="Member" lists={listSideBarMember} />
       <div className="flex-1 p-6 ml-64">{children}</div>
     </div>
   );

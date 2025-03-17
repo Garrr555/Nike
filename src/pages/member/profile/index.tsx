@@ -3,7 +3,7 @@ import userServices from "@/services/user";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
-export default function ProfilePage() {
+export default function ProfilePage({setToaster}:any) {
 
   const [profile, setProfile] = useState({});
   const session: any = useSession()
@@ -26,7 +26,7 @@ export default function ProfilePage() {
 
   return (
     <div>
-      <ProfileMemberView profile={profile} setProfile={setProfile} session={session}/>
+      <ProfileMemberView profile={profile} setProfile={setProfile} session={session} setToaster={setToaster}/>
     </div>
   );
 }

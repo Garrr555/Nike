@@ -16,6 +16,7 @@ const nextConfig = {
         pathname: "/**",
       },
     ],
+     domains: ['static.nike.com'],
   },
 };
 

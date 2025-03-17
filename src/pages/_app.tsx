@@ -8,6 +8,7 @@ import "boxicons/css/boxicons.min.css";
 import { useRouter } from "next/router";
 import Toaster from "@/components/ui/Toaster";
 import { JetBrains_Mono } from "next/font/google";
+import { use, useEffect, useState } from "react";
 config.autoAddCss = false;
 
 const disableNavbar = ["auth", "admin", "member"];
@@ -23,13 +24,26 @@ export default function App({
   pageProps: { session, ...pageProps },
 }: AppProps) {
   const { pathname } = useRouter();
+  const [toaster, setToaster] = useState<any>({
+    
+  });
+
+  useEffect(() => {
+    if(Object.keys(toaster).length > 0) {
+      setTimeout(() => {
+        setToaster({});
+      }, 5000);
+    }
+  }, [toaster]);
 
   return (
     <SessionProvider session={session}>
       <div className={`${jetbrainsMono.variable} antialiased dark:bg-primary font-primary dark:text-white`}>
         {!disableNavbar.includes(pathname.split("/")[1]) && <Header />}
-        <Component {...pageProps} />
-        {/* <Toaster message="Success update Profile"/> */}
+        <Component {...pageProps} setToaster={setToaster}/>
+        {Object.keys(toaster).length > 0 && (
+          <Toaster variant={toaster.variant} message={toaster.message}/>
+        )} 
       </div>
     </SessionProvider>
   );
