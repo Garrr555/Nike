@@ -14,11 +14,11 @@ export const listSideBarAdmin = [
     url: "/admin/products",
     icon: FaBox,
   },
-  {
-    title: "Profile",
-    url: "/admin/profile",
-    icon: CgProfile,
-  },
+  // {
+  //   title: "Profile",
+  //   url: "/admin/profile",
+  //   icon: CgProfile,
+  // },
   {
     title: "Users",
     url: "/admin/users",

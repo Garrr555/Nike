@@ -9,10 +9,12 @@ type Propstype = {
   name: string;
   type: string;
   placeholder?: string;
+  placeholderreal?: string;
   visible?: boolean;
   handleVisible?: any;
   defaultValue?: string;
   disable?: boolean;
+  onChange?: (e: any) => void;
 };
 
 export default function Input(props: Propstype) {
@@ -21,10 +23,12 @@ export default function Input(props: Propstype) {
     name,
     type,
     placeholder,
+    placeholderreal,
     visible,
     handleVisible,
     defaultValue,
     disable,
+    onChange,
   } = props;
 
   const [value, setValue] = useState<string>();
@@ -40,6 +44,7 @@ export default function Input(props: Propstype) {
         {label}
       </label>
       <input
+      placeholder={placeholderreal}
         disabled={disable}
         id={name}
         name={name}
@@ -48,7 +53,7 @@ export default function Input(props: Propstype) {
           disable && "text-gray-600"
         } py-2 px-3 focus:outline-none focus:ring-2 focus:ring-accent text-white/80 bg-primary rounded-xl`}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={onChange ? onChange : (e) => setValue(e.target.value)}
       />
     </div>
   );

@@ -170,7 +170,8 @@ export default function ProfileMemberView({
                       automatically
                     </p>
                     <p>
-                      Maximum upload size is <b>1 MB</b>
+                      Maximum upload size is{" "}
+                      <b className="font-extrabold text-accent">1 MB</b>
                     </p>
                   </>
                 )}

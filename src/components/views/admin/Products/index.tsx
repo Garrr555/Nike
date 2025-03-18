@@ -6,7 +6,8 @@ import { Product } from "@/types/product.type";
 import { convertIDR } from "@/utils/currency";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit, FaTrash, FaPlus } from "react-icons/fa";
+import ModalAddProduct from "./ModalAddProduct";
 
 type PropsType = {
   products: Product[];
@@ -20,8 +21,9 @@ interface User {
 }
 
 export default function ProductsAdminView(props: PropsType) {
-const [productsData, setProductsData] = useState<Product[]>([]);
+  const [productsData, setProductsData] = useState<Product[]>([]);
   const { products } = props;
+  const [modalAddProduct, setModalAddProduct] = useState(false);
   console.log(productsData);
 
   useEffect(() => {
@@ -32,9 +34,21 @@ const [productsData, setProductsData] = useState<Product[]>([]);
     <>
       <AdminLayout>
         <div>
-          <h1 className="text-accent text-3xl font-semibold mb-2">
-            Product Management
-          </h1>
+          <div className="my-5 flex justify-between items-center">
+            <h1 className="text-accent text-3xl font-semibold mb-2">
+              Product Management
+            </h1>
+            <Button
+              type="button"
+              textcolor="text-primary"
+              bgcolor="bg-accent rounded-xl"
+              onClick={() => setModalAddProduct(true)}
+              icon={<FaPlus />}
+            >
+              {" "}
+              Add Product
+            </Button>
+          </div>
           <table className="w-full border-2 border-gray-900">
             <thead>
               <tr className="bg-gray-900 ">
@@ -157,6 +171,12 @@ const [productsData, setProductsData] = useState<Product[]>([]);
           </table>
         </div>
       </AdminLayout>
+      {modalAddProduct && (
+        <ModalAddProduct
+          setModalAddProduct={setModalAddProduct}
+          setProductsData={setProductsData}
+        />
+      )}
     </>
   );
 }

@@ -19,7 +19,7 @@ export default function Modal({ children, onClose }: { children: React.ReactNode
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 ">
       <div
-        className="bg-secondary p-6 shadow-lg w-[700px] relative rounded-xl"
+        className="bg-white dark:bg-secondary p-6 shadow-lg w-full max-w-[700px] max-h-[90vh] overflow-y-auto relative rounded-xl"
         ref={ref}
       >
         {children}

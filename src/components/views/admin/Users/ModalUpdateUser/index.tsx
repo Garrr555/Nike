@@ -82,7 +82,7 @@ export default function ModalUpdateUser(props: any) {
             textcolor={"text-primary"}
             type={"submit"}
           >
-            Update
+            {loading ? "Loading..." : "Update"}
           </Button>
         </form>
       </Modal>
