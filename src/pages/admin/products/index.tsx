@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 export default function AdminProductsPage() {
   const [products, setProducts] = useState([])
+  const [toaster, setToaster] = useState({});
   useEffect(() => {
     const getAllProducts = async () => {
       const {data} = await productServices.getAllProducts()
@@ -13,6 +14,6 @@ export default function AdminProductsPage() {
     getAllProducts()
   }, [])
   return (
-    <ProductsAdminView products={products}/>
+    <ProductsAdminView products={products} setToaster={setToaster}/>
   );
 }
