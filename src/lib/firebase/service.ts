@@ -15,6 +15,7 @@ import { error } from "console";
 
 import { Result } from "postcss";
 import {
+  deleteObject,
   getDownloadURL,
   getStorage,
   ref,
@@ -147,4 +148,13 @@ export async function uploadFile(
   console.log(file);
 
   return true;
+}
+
+export async function deleteFile(url: string, callabck: Function){
+  const storageRef = ref(storage, url);
+  await deleteObject(storageRef).then(() => {
+    return callabck(true);
+  }).catch(() => {
+    return callabck(false);
+  })
 }

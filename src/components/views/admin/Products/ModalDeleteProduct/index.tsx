@@ -2,6 +2,7 @@
 
 import Button from "@/components/ui/button";
 import Modal from "@/components/ui/modal";
+import { deleteFile } from "@/lib/firebase/service";
 import productServices from "@/services/product";
 import userServices from "@/services/user";
 import { Product } from "@/types/product.type";
@@ -27,10 +28,14 @@ export default function ModalDeleteProduct(props: PropTypes) {
       session.data?.accessToken,
     );
     if(result.status === 200){
-        setIsLoading(false);
-        setDeletedProduct({});
-        const { data } = await productServices.getAllProducts();
-        setProductsData(data.data);
+        deleteFile(`/images/Products/${deletedProduct.id}/${deletedProduct.image.split("%2F")[3].split("?")[0]}`, async (status: boolean) => {
+            if(status){
+                setIsLoading(false);
+                setDeletedProduct({});
+                const { data } = await productServices.getAllProducts();
+                setProductsData(data.data);
+            }
+        });
     } else{
         setIsLoading(false);
     }
