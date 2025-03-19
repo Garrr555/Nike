@@ -8,9 +8,12 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { FaEdit, FaTrash, FaPlus } from "react-icons/fa";
 import ModalAddProduct from "./ModalAddProduct";
+import ModalUpdateProduct from "./ModalUpdateProduct";
+import ModalDeleteProduct from "./ModalDeleteProduct";
 
 type PropsType = {
   products: Product[];
+  setToaster: React.Dispatch<React.SetStateAction<{}>>;
 };
 
 interface User {
@@ -22,8 +25,10 @@ interface User {
 
 export default function ProductsAdminView(props: PropsType) {
   const [productsData, setProductsData] = useState<Product[]>([]);
-  const { products } = props;
+  const { products, setToaster } = props;
   const [modalAddProduct, setModalAddProduct] = useState(false);
+  const [updatedProduct, setUpdatedProduct] = useState<Product | {}>({});
+  const [deletedProduct, setDeletedProduct] = useState<Product | {}>({});
   console.log(productsData);
 
   useEffect(() => {
@@ -135,6 +140,9 @@ export default function ProductsAdminView(props: PropsType) {
                           type="button"
                           textcolor="text-primary text-xl"
                           bgcolor="bg-accent"
+                          onClick={() => {
+                            setUpdatedProduct(product);
+                          }}
                         >
                           <FaEdit />
                         </Button>
@@ -142,6 +150,7 @@ export default function ProductsAdminView(props: PropsType) {
                           type="button"
                           textcolor="text-white/80 text-xl"
                           bgcolor="bg-red-500"
+                          onClick={() => setDeletedProduct(product)}
                         >
                           <FaTrash />
                         </Button>
@@ -174,6 +183,25 @@ export default function ProductsAdminView(props: PropsType) {
       {modalAddProduct && (
         <ModalAddProduct
           setModalAddProduct={setModalAddProduct}
+          setProductsData={setProductsData}
+          setToaster={setToaster}
+        />
+      )}
+
+      {Object.keys(updatedProduct).length && (
+        <ModalUpdateProduct
+          setUpdatedProduct={setUpdatedProduct}
+          updatedProduct={updatedProduct}
+          setToaster={setToaster}
+          setProductsData={setProductsData}
+        />
+      )}
+
+      {Object.keys(deletedProduct).length && (
+        <ModalDeleteProduct
+          setDeletedProduct={setDeletedProduct}
+          deletedProduct={deletedProduct}
+          // setToaster={setToaster}
           setProductsData={setProductsData}
         />
       )}

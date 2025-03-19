@@ -8,7 +8,7 @@ type Propstype = {
   label?: string;
   name: string;
   type: string;
-  placeholder?: string;
+  placeholder?: string | number;
   placeholderreal?: string;
   visible?: boolean;
   handleVisible?: any;
@@ -31,7 +31,7 @@ export default function Input(props: Propstype) {
     onChange,
   } = props;
 
-  const [value, setValue] = useState<string>();
+  const [value, setValue] = useState<string | number>();
   useEffect(() => {
     if (!value && placeholder) {
       setValue(placeholder);

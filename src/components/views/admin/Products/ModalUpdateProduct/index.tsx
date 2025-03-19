@@ -13,16 +13,19 @@ import Image from "next/image";
 import { FormEvent, useState } from "react";
 
 type PropsType = {
-  setModalAddProduct: React.Dispatch<React.SetStateAction<boolean>>;
+  updatedProduct: Product | any;
+  setUpdatedProduct: React.Dispatch<React.SetStateAction<boolean>>;
   setProductsData: React.Dispatch<React.SetStateAction<Product[]>>;
   setToaster: React.Dispatch<React.SetStateAction<{}>>;
 };
 
-export default function ModalAddProduct(props: PropsType) {
+export default function ModalUpdateProduct(props: PropsType) {
+  const { updatedProduct, setUpdatedProduct, setProductsData, setToaster } =
+    props;
   const [isLoading, setIsLoading] = useState(false);
-  const [stockCount, setStockCount] = useState([{ size: "", qty: 0 }]);
+  const [stockCount, setStockCount] = useState(updatedProduct.stock);
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
-  const { setModalAddProduct, setProductsData , setToaster} = props;
+
   const session: any = useSession();
 
   const handleStock = (e: any, i: number, type: string) => {
@@ -54,29 +57,63 @@ export default function ModalAddProduct(props: PropsType) {
               setIsLoading(false);
               setUploadedImage(null);
               form.reset();
-              setModalAddProduct(false);
+              setUpdatedProduct(false);
               const { data } = await productServices.getAllProducts();
               setProductsData(data.data);
-              // setToaster({
-              //   variant: "success",
-              //   message: "Success to add product",
-              // });
+              setToaster({
+                variant: "success",
+                message: "Success to add product",
+              });
             } else {
               setIsLoading(false);
-              // setToaster({
-              //   variant: "error",
-              //   message: "Failed to add product",
-              // });
+              setToaster({
+                variant: "error",
+                message: "Failed to add product",
+              });
             }
           } else {
             setIsLoading(false);
-            // setToaster({
-            //   variant: "error",
-            //   message: "Failed to add product",
-            // });
+            setToaster({
+              variant: "error",
+              message: "Failed to add product",
+            });
           }
         }
       );
+    }
+  };
+
+  const updateProduct = async ( form: any, newImageURL: string = updatedProduct.image) => {
+    const data = {
+      name: form.name.value,
+      price: form.price.value,
+      category: form.category.value,
+      status: form.status.value,
+      stock: stockCount,
+      image: newImageURL,
+    };
+    const result = await productServices.updateProduct(
+      updatedProduct.id,
+      data,
+      session.data?.accessToken
+    );
+    if (result.status === 200) {
+      setIsLoading(false);
+      setUploadedImage(null);
+      form.reset();
+      setUpdatedProduct(false);
+      const { data } = await productServices.getAllProducts();
+      setProductsData(data.data);
+      //   setToaster({
+      //     variant: "success",
+      //     message: "Success to update product",
+      //   });
+    } else {
+      setIsLoading(false);
+      //   setToaster({
+      //     variant: "error",
+      //     message: "Failed to add product",
+      //   });
     }
   };
 
@@ -84,26 +121,35 @@ export default function ModalAddProduct(props: PropsType) {
     event.preventDefault();
     setIsLoading(true);
     const form: any = event.target as HTMLFormElement;
-    const data = {
-      name: form.name.value,
-      price: form.price.value,
-      category: form.category.value,
-      status: form.status.value,
-      stock: stockCount,
-      image: "",
-    };
-    const result = await productServices.addProduct(
-      data,
-      session.data?.accessToken
-    );
+    const file = form.image.files[0];
 
-    if (result.status === 200) {
-      uploadImage(result.data.data.id, form);
+    if (file) {
+      const newName = "main." + file.name.split(".")[1];
+      uploadFile(
+        updatedProduct.id,
+        file,
+        newName,
+        "Products",
+        async (status: boolean, newImageURL: string) => {
+          if (status) {
+            updateProduct(form, newImageURL);
+          } else {
+            setIsLoading(false);
+            // setToaster({
+            //   variant: "error",
+            //   message: "Failed to update product",
+            // });
+          }
+        }
+      );
+    } else {
+         updateProduct(form);
     }
   };
+
   return (
-    <Modal onClose={() => setModalAddProduct(false)}>
-      <h1 className="text-2xl text-accent font-semibold">Add Product</h1>
+    <Modal onClose={() => setUpdatedProduct(false)}>
+      <h1 className="text-2xl text-accent font-semibold">Edit Product</h1>
       <form onSubmit={handleSubmit}>
         <div className="my-4">
           <Input
@@ -111,6 +157,7 @@ export default function ModalAddProduct(props: PropsType) {
             name="name"
             type="text"
             placeholderreal="Insert Product Name"
+            placeholder={updatedProduct.name}
           />
         </div>
         <div className="my-4">
@@ -119,6 +166,7 @@ export default function ModalAddProduct(props: PropsType) {
             name="price"
             type="number"
             placeholderreal="Insert Product Price"
+            placeholder={updatedProduct.price}
           />
         </div>
 
@@ -129,7 +177,7 @@ export default function ModalAddProduct(props: PropsType) {
             { label: "Men", value: "men" },
             { label: "Women", value: "women" },
           ]}
-          defaultValue={""}
+          defaultValue={updatedProduct.category}
         />
         <Select
           label="Status"
@@ -138,21 +186,21 @@ export default function ModalAddProduct(props: PropsType) {
             { label: "Released", value: "true" },
             { label: "Not Released", value: "false" },
           ]}
-          defaultValue={""}
+          defaultValue={updatedProduct.status}
         />
         <label htmlFor="image">Image</label>
-        <div className="flex items-center justify-center gap-5 mb-5 w-full">
-          {uploadedImage ? (
-            <Image
-              src={URL.createObjectURL(uploadedImage)}
-              width={100}
-              height={100}
-              alt="image"
-              className="w-[25%]"
-            />
-          ) : (
-            <div className="w-[25%] bg-primary h-40 flex justify-center items-center rounded-xl border border-accent">No Image</div>
-          )}
+        <div className="flex items-center gap-5 mb-5 w-full">
+          <Image
+            src={
+              uploadedImage
+                ? URL.createObjectURL(uploadedImage)
+                : updatedProduct.image
+            }
+            width={100}
+            height={100}
+            alt="image"
+            className="w-[25%]"
+          />
 
           <div className="w-[75%]">
             <InputFile
@@ -179,6 +227,7 @@ export default function ModalAddProduct(props: PropsType) {
                 onChange={(e) => {
                   handleStock(e, i, "size");
                 }}
+                placeholder={item.size}
               />
             </div>
             <div className="w-[50%]">
@@ -190,6 +239,7 @@ export default function ModalAddProduct(props: PropsType) {
                 onChange={(e) => {
                   handleStock(e, i, "qty");
                 }}
+                placeholder={item.qty}
               />
             </div>
           </div>
@@ -204,12 +254,13 @@ export default function ModalAddProduct(props: PropsType) {
         </Button>
         <div className="flex flex-col">
           <br />
+
           <Button
             bgcolor={"bg-accent rounded-full"}
             textcolor={"text-primary"}
             type={"submit"}
           >
-            {isLoading ? "Loading..." : "Add Product"}
+            {isLoading ? "Loading..." : "Update Product"}
           </Button>
         </div>
       </form>
