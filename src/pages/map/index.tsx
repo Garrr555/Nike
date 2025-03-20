@@ -7,9 +7,9 @@ const MapView = dynamic(() => import("@/components/views/map/MapView"), { ssr: f
 
 export default function Map() {
   return (
-    <div className="container">
-      <div className="w-full flex items-center justify-center gap-5">
-        <div className="border-2 border-accent rounded-full overflow-hidden hover:rounded-lg transition-all duration-300 ease-in-out">
+    <div className="container flex items-center my-10">
+      <div className="w-full flex items-center justify-center gap-10">
+        <div className=" border-2 border-accent rounded-full overflow-hidden hover:rounded-lg transition-all duration-300 ease-in-out w-[350px] h-[350px] xl:w-[600px] xl:h-[600px]">
           <MapView />
         </div>
         <div className="w-[50%] text-7xl flex flex-col gap-5">
@@ -23,7 +23,10 @@ export default function Map() {
             </p>
           </div>
           <div className="text-xl flex items-center  justify-end ">
-            <Link href={'/mapview'} className="flex items-center bg-accent px-2 rounded-full text-primary hover:opacity-80 transition-all duration-300 ease-in-out">
+            <Link
+              href={"/mapview"}
+              className="flex items-center bg-accent px-2 rounded-full text-primary hover:opacity-80 transition-all duration-300 ease-in-out"
+            >
               <Button
                 type="button"
                 textcolor="text-primary"

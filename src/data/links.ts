@@ -20,15 +20,16 @@ const links = [
     logo: TiHome,
   },
   {
-    name: "Product",
-    path: "/products",
-    logo: FaBoxes,
-  },
-  {
     name: "Map",
     path: "/map",
     logo: FaMapMarkedAlt,
   },
+  {
+    name: "Product",
+    path: "/products",
+    logo: FaBoxes,
+  },
+
   {
     name: "Admin",
     path: "/admin",
