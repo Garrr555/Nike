@@ -89,6 +89,7 @@ export default function ModalUpdateProduct(props: PropsType) {
       price: form.price.value,
       category: form.category.value,
       status: form.status.value,
+      age: form.age.value,
       stock: stockCount,
       image: newImageURL,
     };
@@ -188,6 +189,15 @@ export default function ModalUpdateProduct(props: PropsType) {
           ]}
           defaultValue={updatedProduct.status}
         />
+        <div className="my-4">
+          <Input
+            label="Age"
+            name="age"
+            type="number"
+            placeholderreal="Insert Age"
+            placeholder={updatedProduct.age}
+          />
+        </div>
         <label htmlFor="image">Image</label>
         <div className="flex items-center gap-5 mb-5 w-full">
           <Image

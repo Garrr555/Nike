@@ -90,6 +90,7 @@ export default function ModalAddProduct(props: PropsType) {
       category: form.category.value,
       status: form.status.value,
       stock: stockCount,
+      age: form.age.value,
       image: "",
     };
     const result = await productServices.addProduct(
@@ -140,6 +141,14 @@ export default function ModalAddProduct(props: PropsType) {
           ]}
           defaultValue={""}
         />
+        <div className="my-4">
+          <Input
+            label="Age"
+            name="age"
+            type="number"
+            placeholderreal="Insert Age"
+          />
+        </div>
         <label htmlFor="image">Image</label>
         <div className="flex items-center justify-center gap-5 mb-5 w-full">
           {uploadedImage ? (
@@ -151,7 +160,9 @@ export default function ModalAddProduct(props: PropsType) {
               className="w-[25%]"
             />
           ) : (
-            <div className="w-[25%] bg-primary h-40 flex justify-center items-center rounded-xl border border-accent">No Image</div>
+            <div className="w-[25%] bg-primary h-40 flex justify-center items-center rounded-xl border border-accent">
+              No Image
+            </div>
           )}
 
           <div className="w-[75%]">

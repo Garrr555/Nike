@@ -27,6 +27,7 @@ export default async function handler(
           data.created_at = new Date();
           data.updated_at = new Date();
           data.price = parseInt(data.price);
+          data.age = data.age
           data.stock.filter((stock: any) => {
             stock.qty = parseInt(stock.qty);
           });

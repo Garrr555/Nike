@@ -79,7 +79,13 @@ export default function ProductsAdminView(props: PropsType) {
                   className="p-2 font-semibold border-x-2 border border-gray-800"
                   rowSpan={2}
                 >
-                  Category
+                  Category kelamin
+                </th>
+                <th
+                  className="p-2 font-semibold border-x-2 border border-gray-800"
+                  rowSpan={2}
+                >
+                  Status
                 </th>
                 <th
                   className="p-2 font-semibold border-x-2 border border-gray-800"
@@ -89,10 +95,16 @@ export default function ProductsAdminView(props: PropsType) {
                 </th>
                 <th
                   className="p-2 font-semibold border-x-2 border border-gray-800"
+                  rowSpan={2}
+                >
+                  Age
+                </th>
+                {/* <th
+                  className="p-2 font-semibold border-x-2 border border-gray-800"
                   colSpan={2}
                 >
                   Stock
-                </th>
+                </th> */}
                 <th
                   className="p-2 font-semibold border-l-2 border border-gray-800"
                   rowSpan={2}
@@ -100,14 +112,14 @@ export default function ProductsAdminView(props: PropsType) {
                   Action
                 </th>
               </tr>
-              <tr className="bg-gray-900">
+              {/* <tr className="bg-gray-900">
                 <th className="p-2 font-semibold border-x-2 border border-gray-800">
                   Size
                 </th>
                 <th className="p-2 font-semibold border-x-2 border border-gray-800">
                   Qty
                 </th>
-              </tr>
+              </tr> */}
             </thead>
             <tbody>
               {productsData.map((product: any, index: number) => (
@@ -128,12 +140,22 @@ export default function ProductsAdminView(props: PropsType) {
                       />
                     </td>
                     <td rowSpan={product.stock.length}>{product.name}</td>
-                    <td rowSpan={product.stock.length}>{product.category}</td>
+                    <td rowSpan={product.stock.length} className="text-center">
+                      {product.category}
+                    </td>
+                    <td rowSpan={product.stock.length} className="text-center">
+                      {product.status === "true"
+                        ? "Released Hidup"
+                        : "Not Released Meninggal"}
+                    </td>
                     <td rowSpan={product.stock.length} className="text-center">
                       {convertIDR(product.price)}
                     </td>
-                    <td className="text-center">{product.stock[0].size}</td>
-                    <td className="text-center">{product.stock[0].qty}</td>
+                    <td rowSpan={product.stock.length} className="text-center">
+                      {product.age}
+                    </td>
+                    {/* <td className="text-center">{product.stock[0].size}</td>
+                    <td className="text-center">{product.stock[0].qty}</td> */}
                     <td className=" " rowSpan={product.stock.length}>
                       <div className="xl:flex-row flex flex-col items-center justify-center gap-2">
                         <Button
@@ -167,8 +189,8 @@ export default function ProductsAdminView(props: PropsType) {
                             }
                             key={index}
                           >
-                            <td className="text-center">{stock.size}</td>
-                            <td className="text-center">{stock.qty}</td>
+                            {/* <td className="text-center">{stock.size}</td>
+                            <td className="text-center">{stock.qty}</td> */}
                           </tr>
                         )}
                       </>
