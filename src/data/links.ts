@@ -1,7 +1,7 @@
 'use client'
 
 import { TiHome } from "react-icons/ti";
-import { RiCustomerService2Fill } from "react-icons/ri";
+import { RiCustomerService2Fill, RiRobot3Fill } from "react-icons/ri";
 import { MdWork } from "react-icons/md";
 import { IoMdContact } from "react-icons/io";
 import {
@@ -23,6 +23,11 @@ const links = [
     name: "Map",
     path: "/map",
     logo: FaMapMarkedAlt,
+  },
+  {
+    name: "AI",
+    path: "/ai",
+    logo: RiRobot3Fill,
   },
   {
     name: "Product",

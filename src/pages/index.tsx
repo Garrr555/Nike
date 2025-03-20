@@ -10,7 +10,7 @@ export default function Home() {
   console.log(data);
 
   return (
-    <main>
+    <main className="container">
       <p>halo</p>
     </main>
   );
