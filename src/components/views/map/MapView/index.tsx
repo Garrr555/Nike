@@ -10,12 +10,12 @@ export default function MapView(){
     })
 
     return (
-      <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false} style={{ width: "400px", height: "400px" }}>
+      <MapContainer center={[-7.5383336, 109.1365494]} zoom={13} scrollWheelZoom={false} style={{ width: "400px", height: "400px" }}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker position={[51.505, -0.09]} icon={newIcon}>
+        <Marker position={[-7.5383336, 109.1365494]} icon={newIcon}>
           <Popup>
             A pretty CSS3 popup. <br /> Easily customizable.
           </Popup>
