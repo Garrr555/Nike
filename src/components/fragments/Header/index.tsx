@@ -2,8 +2,10 @@ import Link from "next/link";
 import Navbar from "../Navbar";
 import LoginOutView from "@/components/layouts/loginout";
 import UserBtn from "@/components/layouts/userbtn";
+import { useSession } from "next-auth/react";
 
 export default function Header() {
+  const {data} = useSession()
   return (
     <header className="container py-5 xl:py-9">
       <div className="flex justify-between dark:text-white">
@@ -15,13 +17,13 @@ export default function Header() {
         {/* Desktop Navbar */}
         <div className="hidden xl:flex items-center justify-center gap-8">
           <Navbar />
-          <UserBtn />
+          <UserBtn data={data} />
         </div>
 
         {/* Mobile Navbar */}
         <div className="xl:hidden flex items-center justify-center gap-4">
           <Navbar />
-          <UserBtn />
+          <UserBtn data={data} />
         </div>
       </div>
     </header>

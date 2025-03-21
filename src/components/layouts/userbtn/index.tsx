@@ -4,8 +4,13 @@ import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { FaUserCircle } from "react-icons/fa";
 
-export default function UserBtn() {
-  const { data } = useSession();
+type Data ={
+  data: any
+}
+
+export default function UserBtn({data}:Data) {
+  
+  console.log("data: ", data?.user);
   return (
     <Link
       href="/member"
@@ -17,7 +22,7 @@ export default function UserBtn() {
           <div className="text-2xl">
             <FaUserCircle />
           </div>
-          {data?.user?.email}
+          {data?.user?.fullname} 
         </div>
       ) : (
         <button

@@ -18,27 +18,32 @@ const links = [
     name: "home",
     path: "/",
     logo: TiHome,
+    role: "member",
   },
   {
     name: "Map",
     path: "/map",
     logo: FaMapMarkedAlt,
+    role: "member",
   },
   {
     name: "AI",
     path: "/ai",
     logo: RiRobot3Fill,
+    role: "member",
   },
   {
     name: "Product",
     path: "/products",
     logo: FaBoxes,
+    role: "member",
   },
 
   {
     name: "Admin",
     path: "/admin",
     logo: FaUserCog,
+    role: "admin",
   },
 ];
 
