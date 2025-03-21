@@ -18,13 +18,14 @@ interface CustomSession {
 }
 
 export default function NavbarView() {
-  const { data: session } = useSession() as { data: CustomSession | null };;
+  const { data: session } = useSession() as { data: CustomSession | null };
   const pathname = usePathname();
 
-  if (!session || session.user?.role !== "member") {
+  if (!session || session.user?.role === "member") {
     return (
       <nav className="flex gap-8">
         {links
+          .filter((link) => link.role === "member")
           .map((link, i) => {
             const IconComponent = link.logo;
             return (
@@ -43,11 +44,10 @@ export default function NavbarView() {
           })}
       </nav>
     );
-  }
+  } 
   return (
     <nav className="flex gap-8">
       {links
-        .filter((link) => link.role === "member")
         .map((link, i) => {
           const IconComponent = link.logo;
           return (
