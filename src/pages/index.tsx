@@ -11,7 +11,7 @@ export default function Home() {
 
   return (
     <main className="container">
-      <p>halo</p>
+      <p>halo, tes di laptop</p>
     </main>
   );
 }
