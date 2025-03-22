@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 interface Product {
   id: number;
   name: string;
-  category: "men" | "women"; // Hanya bisa bernilai "men" atau "women"
-  status: string; // Status aktif atau tidak
+  category: "men" | "women"; 
+  status: string; 
 }
 
 // Konstanta luas wilayah Desa Margasana dalam km²

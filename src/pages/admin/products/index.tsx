@@ -13,6 +13,7 @@ export default function AdminProductsPage() {
     };
     getAllProducts()
   }, [])
+  console.log(products)
   return (
     <ProductsAdminView products={products} setToaster={setToaster}/>
   );
