@@ -132,7 +132,7 @@ export default function BarChart(props: Props) {
     labels: tipe === "jumlah" ? years : years2, // Tahun sebagai label
     datasets: [
       {
-        label: tipe === "jumlah" ? "Jumlah Penduduk" : "Kepadatan Penduduk",
+        label: tipe === "jumlah" ? "Jumlah" : "Kepadatan",
         data: tipe === "jumlah" ? populationCounts : populationDensities,
         backgroundColor:
           tipe === "jumlah" ? barColors : barColors2,
