@@ -1,35 +1,51 @@
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { usePopulationStats } from "@/hook/demografi";
+import { motion } from "framer-motion";
 
-const MapView = dynamic(() => import("@/components/views/map/MapView"), { ssr: false });
+const MapView = dynamic(() => import("@/components/views/map/MapView"), {
+  ssr: false,
+});
 
 export default function DashboardView() {
-    const {
-      totalPopulation,
-      menCount,
-      womenCount,
-      averageAge,
-      populationDensity,
-    } = usePopulationStats();
+  const {
+    totalPopulation,
+    menCount,
+    womenCount,
+    averageAge,
+    populationDensity,
+  } = usePopulationStats();
+
   return (
     <div className="w-full">
       {/* Hero Section */}
-      <div className="relative w-full h-[80vh] flex justify-center items-center">
-        {/* Gambar */}
-        <Image
-          alt="desa"
-          src={"/desa/demo.jpg"}
-          layout="fill"
-          objectFit="cover"
-          className="w-full h-full"
-        />
+      <div className="relative w-full h-[80vh] flex justify-center items-center overflow-hidden">
+        {/* Gambar dengan animasi zoom-in */}
+        <motion.div
+          initial={{ scale: 1.2 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
+          className="absolute inset-0 w-full h-full"
+        >
+          <Image
+            alt="desa"
+            src={"/desa/demo.jpg"}
+            layout="fill"
+            objectFit="cover"
+            className="w-full h-full"
+          />
+        </motion.div>
 
         {/* Overlay gradasi atas & bawah */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/80"></div>
 
         {/* Teks & Logo */}
-        <div className="absolute text-white text-center flex flex-col items-center gap-6 px-6 md:px-20">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.5 }}
+          className="absolute text-white text-center flex flex-col items-center gap-6 px-6 md:px-20"
+        >
           <Image
             alt="logo"
             src={"/desa/logo-bms.png"}
@@ -45,49 +61,73 @@ export default function DashboardView() {
             termasuk jumlah penduduk, kepadatan, pertumbuhan, serta peta
             interaktif.
           </p>
-        </div>
+        </motion.div>
       </div>
 
       {/* Section Statistik Demografi */}
       <section className="py-16 px-6 md:px-20 text-center bg-primary">
-        <h2 className="text-3xl font-bold text-white mb-6">
+        <motion.h2
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-3xl font-bold text-white mb-6"
+        >
           Statistik Demografi
-        </h2>
+        </motion.h2>
         <div className="grid md:grid-cols-3 gap-8">
-          <div className="p-6 bg-secondary shadow-lg rounded-xl">
-            <h3 className="text-xl font-semibold text-white/80">
-              Total Penduduk
-            </h3>
-            <p className="text-2xl font-bold text-accent">{totalPopulation}</p>
-          </div>
-          <div className="p-6 bg-secondary shadow-lg rounded-xl">
-            <h3 className="text-xl font-semibold text-white/80">
-              Kepadatan Penduduk
-            </h3>
-            <p className="text-2xl font-bold text-accent">{populationDensity} Jiwa/km²</p>
-          </div>
-          <div className="p-6 bg-secondary shadow-lg rounded-xl">
-            <h3 className="text-xl font-semibold text-white/80">
-              Rata-rata Usia
-            </h3>
-            <p className="text-2xl font-bold text-accent">{averageAge}</p>
-          </div>
+          {[
+            { title: "Total Penduduk", value: totalPopulation },
+            {
+              title: "Kepadatan Penduduk",
+              value: `${populationDensity} Jiwa/km²`,
+            },
+            { title: "Rata-rata Usia", value: averageAge },
+          ].map((item, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
+              whileHover={{ scale: 1.05 }}
+              className="p-6 bg-secondary shadow-lg rounded-xl transition-transform"
+            >
+              <h3 className="text-xl font-semibold text-white/80">
+                {item.title}
+              </h3>
+              <p className="text-2xl font-bold text-accent">{item.value}</p>
+            </motion.div>
+          ))}
         </div>
       </section>
 
       {/* Section Peta Interaktif */}
       <section className="py-16 px-6 md:px-20 text-center bg-primary">
-        <h2 className="text-3xl font-bold texct-white mb-6">
+        <motion.h2
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-3xl font-bold text-white mb-6"
+        >
           Peta Interaktif
-        </h2>
-        <p className="text-lg text-white/80 mb-6">
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.5 }}
+          className="text-lg text-white/80 mb-6"
+        >
           Gunakan peta interaktif untuk mengeksplorasi informasi demografi Desa
           Margasana.
-        </p>
-        <div className="w-full h-96 bg-gray-300 flex items-center justify-center rounded-xl overflow-hidden">
+        </motion.p>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1 }}
+          className="w-full h-96 bg-gray-300 flex items-center justify-center rounded-xl overflow-hidden"
+        >
           {/* Placeholder untuk peta */}
-          <MapView/>
-        </div>
+          <MapView />
+        </motion.div>
       </section>
     </div>
   );
