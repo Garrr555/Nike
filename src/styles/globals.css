@@ -14,3 +14,8 @@ body {
   font-family: var(--font-jetbrains-mono);
   ::-webkit-scrollbar { display: none; }
 }
+
+.dark body {
+  background-color: #1c1c22;
+  color: white;
+}

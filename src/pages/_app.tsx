@@ -29,6 +29,10 @@ export default function App({
   });
 
   useEffect(() => {
+    document.documentElement.classList.add("dark"); // Paksa dark mode
+  }, []);
+
+  useEffect(() => {
     if(Object.keys(toaster).length > 0) {
       setTimeout(() => {
         setToaster({});
