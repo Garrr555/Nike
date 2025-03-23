@@ -32,12 +32,12 @@ const links = [
     logo: RiRobot3Fill,
     role: "member",
   },
-  {
-    name: "Product",
-    path: "/products",
-    logo: FaBoxes,
-    role: "member",
-  },
+  // {
+  //   name: "Product",
+  //   path: "/products",
+  //   logo: FaBoxes,
+  //   role: "member",
+  // },
 
   {
     name: "Admin",

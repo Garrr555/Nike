@@ -37,7 +37,7 @@ const MiniMapComponent = () => {
         scrollWheelZoom={true}
         className="w-full h-full"
         dragging={true}
-        zoomControl={true}
+        zoomControl={false}
         attributionControl={false}
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />

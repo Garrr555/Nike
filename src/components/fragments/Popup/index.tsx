@@ -1,13 +1,6 @@
 import productServices from "@/services/product";
 import { useEffect, useState } from "react";
-
-interface Product {
-  id: number;
-  name: string;
-  category: "men" | "women"; 
-  status: string; 
-  age: number;
-}
+import { usePopulationStats } from "@/hook/demografi";
 
 type Props = {
   total: boolean;
@@ -16,67 +9,22 @@ type Props = {
   usia: boolean;
 };
 
-// Konstanta luas wilayah Desa Margasana dalam km²
-const AREA_MARGASANA_KM2 = 3.5;
-
 export default function PopUp(prop:Props) {
-  const { total, kepadatan, kelamin, usia } = prop;
-  const [products, setProducts] = useState<Product[]>([]);
-  console.log("products: ", products);
-
-  useEffect(() => {
-    const getAllProducts = async () => {
-      const { data } = await productServices.getAllProducts();
-      setProducts(data.data);
-    };
-    getAllProducts();
-  }, []);
-
-  // Filter hanya penduduk dengan status true
-  const activeProducts = products.filter(
-    (product) => product.status === "true"
-  );
-  console.log("activeProducts: ", activeProducts);
-
-  // Menghitung jumlah laki-laki dan perempuan yang memiliki status true
-  const menCount = activeProducts.filter(
-    (product) => product.category === "men"
-  ).length;
-  const womenCount = activeProducts.filter(
-    (product) => product.category === "women"
-  ).length;
-  const totalPopulation = activeProducts.length;
-
-  // Fungsi untuk menghitung kepadatan penduduk
-  const calculatePopulationDensity = (
-    population: number,
-    area: number
-  ): number => {
-    return area > 0 ? population / area : 0;
-  };
-
-  // Kepadatan penduduk di Desa Margasana
-  const populationDensity = Math.round(calculatePopulationDensity(
+  const {
     totalPopulation,
-    AREA_MARGASANA_KM2
-  ))
+    menCount,
+    womenCount,
+    averageAge,
+    populationDensity,
+  } = usePopulationStats();
 
-  // Menghitung rata-rata usia penduduk yang statusnya "true"
- const totalAge = activeProducts.reduce(
-   (sum, product) => sum + Number(product.age),
-   0
- );
-  console.log(totalAge)
-  const averageAge =
-    totalPopulation > 0
-      ? Math.round(totalAge / totalPopulation).toFixed(2)
-      : "N/A";
+  const { total, kepadatan, kelamin, usia } = prop;
 
   return (
     <div>
       <div>
         <p className={`${total ? "" : "hidden"}`}>
-          Total Penduduk: <span className="text-accent">{totalPopulation}</span>
+          Total Penduduk: <span className="text-accent">{totalPopulation}</span> Jiwa
         </p>
         <div className="flex justify-between">
           <p className={`${kelamin ? "" : "hidden"}`}>
@@ -99,3 +47,4 @@ export default function PopUp(prop:Props) {
     </div>
   );
 }
+
