@@ -1,24 +1,27 @@
+import AdminLayout from "@/components/layouts/AdminLayout";
 import BarChart from "./BarChart";
 import LineChart from "./LineChart";
 import PieChart from "./PieChart";
 
 export default function StatAdminView(){
    return (
-        <div className="flex flex-wrap justify-start items-center gap-5 p-10">
-          <div >
-            <LineChart nama="Usia Penduduk" />
-          </div>
-          <div>
-            <BarChart nama="Jumlah Penduduk" tipe="jumlah"/>
-          </div>
-          <div>
-            <BarChart nama="Kepadatan Penduduk" tipe="kepadatan"/>
-          </div>
-          <div className="">
-            <PieChart nama="Jenis Kelamin" />
-          </div>
-  
-          <div>{/* <Doughnut /> */}</div>
-        </div>
-      );
+     <AdminLayout>
+       <div className="flex flex-col justify-center items-start gap-5">
+         <div className="w-full">
+           <LineChart nama="Usia Penduduk" />
+         </div>
+         <div className="w-full">
+           <BarChart nama="Jumlah Penduduk" tipe="jumlah" />
+         </div>
+         <div className="w-full">
+           <BarChart nama="Kepadatan Penduduk (jiwa/km²)" tipe="kepadatan" />
+         </div>
+         <div className="w-full">
+           <PieChart nama="Jenis Kelamin" />
+         </div>
+
+         <div>{/* <Doughnut /> */}</div>
+       </div>
+     </AdminLayout>
+   );
 }

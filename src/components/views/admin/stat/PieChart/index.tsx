@@ -58,15 +58,15 @@ export default function PieChart({ nama }: Props) {
   };
 
   return (
-    <AdminLayout>
-      <div className="">
-        <div className="bg-secondary shadow-lg rounded-lg p-6 max-w-md w-full">
+   
+      
+        <div className="bg-secondary shadow-lg rounded-lg p-6 w-full">
           <h2 className="text-xl font-semibold text-accent text-center mb-4">{`${nama}`}</h2>
-          <div className="w-96 h-96 mx-auto">
+          <div className="w-full h-96 mx-auto">
             <Pie data={data} options={options} />
           </div>
         </div>
-      </div>
-    </AdminLayout>
+      
+    
   );
 }

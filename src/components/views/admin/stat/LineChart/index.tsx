@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import AdminLayout from "@/components/layouts/AdminLayout";
 import { Line } from "react-chartjs-2";
@@ -18,20 +18,18 @@ import productServices from "@/services/product";
 ChartJS.register(
   CategoryScale,
   LinearScale,
-  
+
   LineElement,
   PointElement,
-  
+
   Title,
   Tooltip,
-  Legend,
-  
+  Legend
 );
 
 type Props = {
-  nama: string,
-
-}
+  nama: string;
+};
 
 interface Product {
   id: number;
@@ -41,7 +39,7 @@ interface Product {
   age: number;
 }
 
-export default function LineChart(props:Props) {
+export default function LineChart(props: Props) {
   const { nama } = props;
 
   const [products, setProducts] = useState<Product[]>([]);
@@ -92,17 +90,11 @@ export default function LineChart(props:Props) {
     },
   };
   return (
-    <>
-      <AdminLayout>
-        <div className="">
-          <div className="bg-secondary shadow-lg rounded-lg p-6 max-w-md w-full">
-            <h2 className="text-xl font-semibold text-accent text-center mb-4">{`${nama}`}</h2>
-            <div className="w-96 h-96 mx-auto">
-              <Line data={data} options={options} />
-            </div>
-          </div>
-        </div>
-      </AdminLayout>
-    </>
+    <div className="w-full bg-secondary shadow-lg rounded-lg p-6 ">
+      <h2 className="text-xl font-semibold text-accent text-center mb-4">{`${nama}`}</h2>
+      <div className="w-full h-96 mx-auto">
+        <Line data={data} options={options} />
+      </div>
+    </div>
   );
 }

@@ -13,6 +13,13 @@ import { Icon, Control } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import PopUp from "@/components/fragments/Popup";
 
+type Props = {
+  total:boolean,
+  kelamin:boolean,
+  kepadatan: boolean,
+  usia: boolean
+}
+
 // Icon Custom
 const newIcon = new Icon({
   iconUrl: "/marker.svg",
@@ -54,8 +61,9 @@ const LocationTracker = ({
   return <MiniMapComponent />;
 };
 
-export default function MapPage() {
+export default function MapPage(prop:Props) {
   const [coords, setCoords] = useState({ lat: -7.5383336, lng: 109.1365494 });
+  const {total, kepadatan, kelamin, usia} = prop
 
   return (
     <div className="relative container flex justify-center pb-10 h-screen">
@@ -85,7 +93,7 @@ export default function MapPage() {
       </div>
 
       <div className="absolute bottom-11 right-5 bg-primary text-white/80 border border-accent p-2 rounded-lg shadow-md text-sm">
-        <PopUp />
+        <PopUp total={total} kepadatan={kepadatan} kelamin={kelamin} usia={usia}/>
       </div>
     </div>
   );

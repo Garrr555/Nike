@@ -57,17 +57,6 @@ export default function BarChart(props: Props) {
     (product) => product.status === "true"
   );
 
-  // Menghitung jumlah laki-laki dan perempuan yang memiliki status true
-  const totalPopulation = activeProducts.length;
-
-  // Fungsi untuk menghitung kepadatan penduduk
-  const calculatePopulationDensity = (
-    population: number,
-    area: number
-  ): number => {
-    return area > 0 ? population / area : 0;
-  };
-
   // **Mengelompokkan data berdasarkan tahun input**
   const populationByYear: { [year: string]: number } = {};
 
@@ -87,7 +76,7 @@ export default function BarChart(props: Props) {
   const densityByYear: { [year: string]: number } = {};
 
   Object.keys(populationByYear).forEach((year) => {
-    densityByYear[year] = populationByYear[year] / AREA_MARGASANA_KM2;
+    densityByYear[year] =  Math.round(populationByYear[year] / AREA_MARGASANA_KM2);
   });
 
   // **Data untuk chart**
@@ -132,10 +121,9 @@ export default function BarChart(props: Props) {
     labels: tipe === "jumlah" ? years : years2, // Tahun sebagai label
     datasets: [
       {
-        label: tipe === "jumlah" ? "Jumlah" : "Kepadatan",
+        label: tipe === "jumlah" ? "Jumlah" : "Kepadatan (jiwa/km²)",
         data: tipe === "jumlah" ? populationCounts : populationDensities,
-        backgroundColor:
-          tipe === "jumlah" ? barColors : barColors2,
+        backgroundColor: tipe === "jumlah" ? barColors : barColors2,
       },
     ],
   };
@@ -147,15 +135,15 @@ export default function BarChart(props: Props) {
   };
 
   return (
-    <AdminLayout>
-      <div className="">
-        <div className="bg-secondary shadow-lg rounded-lg p-6 max-w-md w-full">
+    
+      
+        <div className="bg-secondary shadow-lg rounded-lg p-6 w-full">
           <h2 className="text-xl font-semibold text-accent text-center mb-4">{`${nama}`}</h2>
-          <div className="w-96 h-96 mx-auto">
+          <div className="w-full h-96 mx-auto">
             <Bar data={data} options={options} />
           </div>
         </div>
-      </div>
-    </AdminLayout>
+      
+    
   );
 }

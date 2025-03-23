@@ -17,7 +17,7 @@ export default function MapView(){
         />
         <Marker position={[-7.5383336, 109.1365494]} icon={newIcon}>
           <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
+            Margasana Village
           </Popup>
         </Marker>
       </MapContainer>

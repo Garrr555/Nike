@@ -1,6 +1,6 @@
 import { MdDashboard } from "react-icons/md";
 import { FaBox, FaCartShopping } from "react-icons/fa6";
-import { FaUsers } from "react-icons/fa";
+import { FaUsers, FaMapMarkedAlt } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { IoStatsChart } from "react-icons/io5";
 
@@ -29,6 +29,11 @@ export const listSideBarAdmin = [
     title: "Statistic",
     url: "/admin/stat",
     icon: IoStatsChart,
+  },
+  {
+    title: "Map",
+    url: "/admin/map",
+    icon: FaMapMarkedAlt,
   },
 ];
 export const listSideBarMember = [
