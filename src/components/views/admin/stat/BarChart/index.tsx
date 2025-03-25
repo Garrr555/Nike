@@ -10,7 +10,6 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import AdminLayout from "@/components/layouts/AdminLayout";
 import { useEffect, useState } from "react";
 import productServices from "@/services/product";
 
@@ -23,9 +22,12 @@ ChartJS.register(
   Legend
 );
 
+const AREA_MARGASANA_KM2 = 3.5;
+
 type Props = {
   nama: string;
   tipe: "jumlah" | "kepadatan";
+  waktu: boolean;
 };
 
 interface Product {
@@ -33,15 +35,10 @@ interface Product {
   name: string;
   category: "men" | "women";
   status: string;
-  created_at: { seconds: number; nanoseconds: number }; // Format Timestamp
+  created_at: { seconds: number; nanoseconds: number };
 }
 
-// Konstanta luas wilayah Desa Margasana dalam km²
-const AREA_MARGASANA_KM2 = 3.5;
-
-export default function BarChart(props: Props) {
-  const { nama, tipe } = props;
-
+export default function BarChart({ nama, tipe, waktu }: Props) {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
@@ -52,98 +49,65 @@ export default function BarChart(props: Props) {
     getAllProducts();
   }, []);
 
-  // Filter hanya penduduk dengan status "true"
   const activeProducts = products.filter(
     (product) => product.status === "true"
   );
 
-  // **Mengelompokkan data berdasarkan tahun input**
-  const populationByYear: { [year: string]: number } = {};
+  const populationByDate: { [date: string]: number } = {};
+  let cumulativeSum = 0;
 
-  activeProducts.forEach((product) => {
-    if (product.created_at && product.created_at.seconds) {
-      const date = new Date(product.created_at.seconds * 1000); // Konversi ke Date
-      const year = date.getFullYear().toString(); // Ambil Tahun
-      populationByYear[year] = (populationByYear[year] || 0) + 1;
-    }
-  });
+  activeProducts
+    .sort((a, b) => a.created_at.seconds - b.created_at.seconds)
+    .forEach((product) => {
+      if (product.created_at && product.created_at.seconds) {
+        const date = new Date(product.created_at.seconds * 1000);
+        const key = waktu
+          ? date.toISOString().split("T")[0] // Format YYYY-MM-DD jika waktu true
+          : date.getFullYear().toString(); // Format YYYY jika waktu false
 
-  // **Mempersiapkan data untuk chart**
-  const years = Object.keys(populationByYear).sort(); // Urutkan tahun secara kronologis
-  const populationCounts = years.map((year) => populationByYear[year]);
+        cumulativeSum += 1; // Menambah jumlah secara kumulatif
+        populationByDate[key] = cumulativeSum;
+      }
+    });
 
-  // Menghitung kepadatan penduduk per tahun
-  const densityByYear: { [year: string]: number } = {};
+  const labels = Object.keys(populationByDate).sort();
+  const populationCounts = labels.map((date) => populationByDate[date]);
 
-  Object.keys(populationByYear).forEach((year) => {
-    densityByYear[year] =  Math.round(populationByYear[year] / AREA_MARGASANA_KM2);
-  });
+  const densityByDate = labels.reduce<{ [date: string]: number }>(
+    (acc, date) => {
+      acc[date] = Math.round(populationByDate[date] / AREA_MARGASANA_KM2);
+      return acc;
+    },
+    {}
+  );
 
-  // **Data untuk chart**
-  const years2 = Object.keys(densityByYear).sort(); // Urutkan tahun secara kronologis
-  const populationDensities = years.map((year) => densityByYear[year]); // Ambil kepadatan
+  const populationDensities = labels.map((date) => densityByDate[date]);
 
-  const colors = [
-    "#e11d48",
-    "#14b8a6",
-    "#a855f7",
-    "#4ade80",
-    "#ec4899",
-    "#8b5cf6",
-    "#06b6d4",
-    "#10b981",
-    "#facc15",
-    "#f97316",
-    "#ef4444",
-    "#3b82f6",
-  ];
-
-  const colors2 = [
-    "#3b82f6",
-    "#ef4444",
-    "#f97316",
-    "#facc15",
-    "#10b981",
-    "#06b6d4",
-    "#8b5cf6",
-    "#ec4899",
-    "#4ade80",
-    "#a855f7",
-    "#14b8a6",
-    "#e11d48",
-  ];
-
-  // Menentukan warna dinamis berdasarkan jumlah tahun yang ada
-  const barColors = years.map((_, index) => colors[index % colors.length]);
-  const barColors2 = years2.map((_, index) => colors2[index % colors2.length]);
+  const colors = ["#e11d48", "#14b8a6", "#a855f7", "#4ade80", "#ec4899"];
+  const barColors = labels.map((_, index) => colors[index % colors.length]);
 
   const data = {
-    labels: tipe === "jumlah" ? years : years2, // Tahun sebagai label
+    labels,
     datasets: [
       {
         label: tipe === "jumlah" ? "Jumlah" : "Kepadatan (jiwa/km²)",
         data: tipe === "jumlah" ? populationCounts : populationDensities,
-        backgroundColor: tipe === "jumlah" ? barColors : barColors2,
+        backgroundColor: barColors,
       },
     ],
   };
 
-  // Opsi untuk mengatur ukuran chart
   const options = {
     responsive: true,
     maintainAspectRatio: false,
   };
 
   return (
-    
-      
-        <div className="bg-secondary shadow-lg rounded-lg p-6 w-full">
-          <h2 className="text-xl font-semibold text-accent text-center mb-4">{`${nama}`}</h2>
-          <div className="w-full h-96 mx-auto">
-            <Bar data={data} options={options} />
-          </div>
-        </div>
-      
-    
+    <div className="bg-secondary shadow-lg rounded-lg p-6 w-full">
+      <h2 className="text-xl font-semibold text-accent text-center mb-4">{`${nama}`}</h2>
+      <div className="w-full h-96 mx-auto">
+        <Bar data={data} options={options} />
+      </div>
+    </div>
   );
 }
