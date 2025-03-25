@@ -16,6 +16,7 @@ export default function PopUp(prop:Props) {
     womenCount,
     averageAge,
     populationDensity,
+    growthRate,
   } = usePopulationStats();
 
   const { total, kepadatan, kelamin, usia } = prop;
@@ -24,7 +25,8 @@ export default function PopUp(prop:Props) {
     <div>
       <div>
         <p className={`${total ? "" : "hidden"}`}>
-          Total Penduduk: <span className="text-accent">{totalPopulation}</span> Jiwa
+          Total Penduduk: <span className="text-accent">{totalPopulation}</span>{" "}
+          Jiwa
         </p>
         <div className="flex justify-between">
           <p className={`${kelamin ? "" : "hidden"}`}>
@@ -42,6 +44,12 @@ export default function PopUp(prop:Props) {
         <p className={`${usia ? "" : "hidden"}`}>
           Rata-rata Usia: <span className="text-accent">{averageAge}</span>{" "}
           tahun
+        </p>
+        <p className={`${usia ? "" : "hidden"}`}>
+          Pertumbuhan Penduduk:{" "}
+          <span className="text-accent">
+            {growthRate !== null ? `${growthRate}%` : "Data tidak tersedia"}
+          </span>
         </p>
       </div>
     </div>

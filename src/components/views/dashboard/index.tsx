@@ -14,6 +14,7 @@ export default function DashboardView() {
     womenCount,
     averageAge,
     populationDensity,
+    growthRate,
   } = usePopulationStats();
 
   return (
@@ -74,7 +75,7 @@ export default function DashboardView() {
         >
           Statistik Demografi
         </motion.h2>
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="flex flex-wrap justify-center items-center gap-8">
           {[
             { title: "Total Penduduk", value: totalPopulation },
             {
@@ -82,6 +83,7 @@ export default function DashboardView() {
               value: `${populationDensity} Jiwa/km²`,
             },
             { title: "Rata-rata Usia", value: averageAge },
+            { title: "Pertumbuhan Penduduk", value: growthRate !== null ? `${growthRate}%` : "Data belum tersedia" },
           ].map((item, index) => (
             <motion.div
               key={index}
@@ -89,7 +91,7 @@ export default function DashboardView() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.2 }}
               whileHover={{ scale: 1.05 }}
-              className="p-6 bg-secondary shadow-lg rounded-xl transition-transform"
+              className="w-96 p-6 bg-secondary shadow-lg rounded-xl transition-transform"
             >
               <h3 className="text-xl font-semibold text-white/80">
                 {item.title}
