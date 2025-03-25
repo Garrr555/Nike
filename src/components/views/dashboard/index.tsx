@@ -37,7 +37,7 @@ export default function DashboardView() {
         </motion.div>
 
         {/* Overlay gradasi atas & bawah */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/80"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-primary"></div>
 
         {/* Teks & Logo */}
         <motion.div
