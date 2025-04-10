@@ -6,13 +6,12 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { FormEvent, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { GiArchiveRegister } from "react-icons/gi";
+import { FaUserPlus } from "react-icons/fa6";
 
 export default function RegisterView() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
 
   const { push } = useRouter();
 
@@ -87,14 +86,14 @@ export default function RegisterView() {
                 id="password"
                 type={showPassword ? "text" : "password"}
                 className="w-full px-4 py-2 focus:outline-none focus:ring-1 focus:ring-accent bg-primary rounded-xl"
-                placeholder="********"
+                placeholder={showPassword ? "password" : "••••••••"}
               />
               <button
                 type="button"
                 className="absolute inset-y-0 right-4 flex items-center text-white/60"
                 onClick={() => setShowPassword(!showPassword)}
               >
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                {showPassword ? <FaEye size={20} /> : <FaEyeSlash size={20} />}
               </button>
             </div>
           </div>
@@ -106,8 +105,8 @@ export default function RegisterView() {
               "Loading..."
             ) : (
               <div className="flex items-center justify-center font-bold">
-                <span className="text-2xl">
-                  <GiArchiveRegister />
+                <span className="text-2xl mx-1">
+                  <FaUserPlus />
                 </span>{" "}
                 Register
               </div>

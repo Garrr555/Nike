@@ -75,14 +75,16 @@ export default function LoginView() {
               id="password"
               type={showPassword ? "text" : "password"}
               className="w-full px-4 py-2 focus:outline-none focus:ring-1 focus:ring-accent bg-primary rounded-xl"
-              placeholder="***********"
+              placeholder={
+                showPassword ? "password" : "••••••••"
+              }
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
               className="absolute right-3 top-9 text-white/60"
             >
-              {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
+              {showPassword ? <FaEye size={20} /> : <FaEyeSlash size={20} />}
             </button>
           </div>
 
