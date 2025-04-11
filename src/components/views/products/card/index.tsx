@@ -4,12 +4,12 @@ import Image from "next/image";
 
 type PropsTypes = {
     product: Product
-    key: string
+    
 }
 export default function Card(props: PropsTypes){
-    const {product, key} = props
+    const {product} = props
     return (
-      <div key={key} className="w-[250px] h-[400px] xl:w-[300px]">
+      <div className="w-[250px] h-[400px] xl:w-[300px]">
         <div className="w-full h-[300px]">
           <Image
             src={product.image}
