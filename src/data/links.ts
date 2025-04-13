@@ -2,16 +2,11 @@
 
 import { TiHome } from "react-icons/ti";
 import { RiCustomerService2Fill, RiRobot3Fill } from "react-icons/ri";
-import { MdWork } from "react-icons/md";
-import { IoMdContact } from "react-icons/io";
 import {
-  FaUserEdit,
   FaUserCog,
-  FaUserCircle,
   FaMapMarkedAlt,
   FaBoxes,
 } from "react-icons/fa";
-import { useSession } from "next-auth/react";
 
 const links = [
   {

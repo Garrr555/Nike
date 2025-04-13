@@ -72,7 +72,7 @@ export default function DetailProductView(props: PropTypes) {
 
   return (
     <div className="container ">
-      <div className="flex items-center w-full my-3 bg-secondary overflow-hidden rounded-lg">
+      <div className="flex items-center w-full my-3 bg-secondary overflow-hidden rounded-lg ">
         <div className="w-[450px] xl:w-[600px] flex justify-start items-center">
           <Image
             src={product?.image}
@@ -89,7 +89,7 @@ export default function DetailProductView(props: PropTypes) {
               {product?.category}
             </h3>
             <br />
-            <h3 className="text-lg font-bold">{convertIDR(product?.price)}</h3>
+            <h3 className="text-xl text-accent font-bold">{convertIDR(product?.price)}</h3>
           </div>
           <div>
             <p className="font-light text-sm">Select Size</p>
@@ -123,7 +123,7 @@ export default function DetailProductView(props: PropTypes) {
                             className="border border-white/80 px-4 py-2 rounded-md text-sm
                            cursor-pointer select-none flex items-center justify-center
                            peer-checked:border-accent peer-checked:bg-transparent peer-checked:text-accent
-                           min-w-[48px] min-h-[40px]"
+                           min-w-[48px] min-h-[40px] hover:bg-primary transition-all duration-300 ease-in-out"
                           >
                             {item.size}
                           </label>

@@ -9,8 +9,8 @@ type PropsTypes = {
 export default function Card(props: PropsTypes){
     const {product} = props
     return (
-      <div className="bg-secondary border-2 border-secondary flex justify-center items-center pb-2 rounded-xl overflow-hidden transition-all duration-300 ease-in-out hover:scale-105 group">
-        <div className="w-[250px] h-[400px] xl:w-[300px] group-hover:scale-100 transition-all duration-300 ease-in-out">
+      <div className="bg-secondary flex justify-center items-center pb-2 rounded-xl overflow-hidden transition-all duration-300 ease-in-out hover:scale-105 group">
+        <div className="w-[280px] h-[400px] xl:w-[300px] group-hover:scale-100 transition-all duration-300 ease-in-out">
           <div className="w-full h-3/4">
             <Image
               src={product.image}

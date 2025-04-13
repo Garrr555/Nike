@@ -7,8 +7,8 @@ import { useSession } from "next-auth/react";
 export default function Header() {
   const {data} = useSession()
   return (
-    <header className="container py-5 xl:py-9">
-      <div className="flex justify-between dark:text-white">
+    <header className="py-5 xl:py-9 sticky top-0 h-fit z-50 bg-primary">
+      <div className="container flex justify-between dark:text-white ">
         <Link href={"/"}>
           <h1 className="text-4xl font-semibold dark:text-white">
             Marga<span className="text-accent">.</span>
