@@ -11,7 +11,7 @@ type PropsTypes = {
 export default function ProductView(props: PropsTypes) {
     const {products} = props
   return (
-    <div className="container">
+    <div className="container mb-3">
       <h1 className="text-xl">All product ({products.length})</h1>
       <div className="mt-5 flex gap-8">
         <div className="w-1/6">
@@ -30,7 +30,7 @@ export default function ProductView(props: PropsTypes) {
             </div>
           </div>
         </div>
-        <div className="w-5/6 grid grid-cols-3 xl:grid-cols-4 gap-5 ">
+        <div className="w-5/6 grid grid-cols-3 xl:grid-cols-4 gap-4">
           {products.map((product) => (
             <Link key={product.id} href={`/products/${product.id}`}>
               <Card product={product} />
