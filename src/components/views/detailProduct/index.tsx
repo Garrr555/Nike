@@ -1,15 +1,74 @@
+"use client";
+
 import Button from "@/components/ui/button";
+import userServices from "@/services/user";
 import { Product } from "@/types/product.type";
 import { convertIDR } from "@/utils/currency";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 type PropTypes = {
   product: Product | any;
+  cart: any;
+  productId: string | string[] | undefined;
+  setToaster: React.Dispatch<React.SetStateAction<{}>>;
+  refreshCart: () => void;
 };
 
 export default function DetailProductView(props: PropTypes) {
-  const { product } = props;
+  const [selectedSize, setSelectedSize] = useState("");
+  const { product, cart, productId, setToaster, refreshCart } = props;
+  const { status, data: session }: any = useSession();
+  const router = useRouter();
+
+  const handleAddToCart = async () => {
+    if (selectedSize !== "") {
+      let newCart = [];
+      if (
+        cart.filter(
+          (item: any) => item.id === productId && item.size === selectedSize
+        ).length > 0
+      ) {
+        newCart = cart.map((item: any) => {
+          if (item.id === productId && item.size === selectedSize) {
+            item.qty += 1;
+          }
+          return item;
+        });
+      } else {
+        newCart = [
+          ...cart,
+          {
+            id: productId,
+            size: selectedSize,
+            qty: 1,
+          },
+        ];
+      }
+      try {
+        const result = await userServices.addToCart(
+          {
+            carts: newCart,
+          },
+          session?.accessToken
+        );
+        if (result.status === 200) {
+          setSelectedSize("");
+          setToaster({ variant: "success", message: "Success to add to cart" });
+          props.refreshCart();
+        }
+      } catch (error) {
+        setToaster({ variant: "error", message: "Failed to add to cart" });
+      }
+      console.log(newCart);
+    }
+  };
+  console.log(status);
+  console.log(selectedSize);
   console.log(product);
+
   return (
     <div className="container">
       <div className="flex justify-center items-center h-screen w-full">
@@ -53,6 +112,8 @@ export default function DetailProductView(props: PropTypes) {
                           id={`size-${item.size}`}
                           name="size"
                           className="hidden peer"
+                          onClick={() => setSelectedSize(item.size)}
+                          checked={selectedSize === item.size}
                         />
                         <label
                           htmlFor={`size-${item.size}`}
@@ -74,9 +135,14 @@ export default function DetailProductView(props: PropTypes) {
 
           <div className="mx-auto">
             <Button
-              type="button"
+              type={status === "authenticated" ? "submit" : "button"}
               bgcolor="bg-accent rounded-sm w-full"
               textcolor="text-primary"
+              onClick={() => {
+                status === "unauthenticated"
+                  ? router.push(`/auth/login?callbackUrl=${router.asPath}`)
+                  : handleAddToCart();
+              }}
             >
               Add to Cart
             </Button>

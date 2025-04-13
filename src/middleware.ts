@@ -12,5 +12,5 @@ export default withAuth(mainMiddleware, [
     'member',
     'mapview',
     'ai',
-    'products',
+    // 'products',
 ])
