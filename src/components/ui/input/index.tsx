@@ -15,6 +15,7 @@ type Propstype = {
   defaultValue?: string;
   disable?: boolean;
   onChange?: (e: any) => void;
+  className?: string;
 };
 
 export default function Input(props: Propstype) {
@@ -27,6 +28,7 @@ export default function Input(props: Propstype) {
     visible,
     handleVisible,
     defaultValue,
+    className,
     disable,
     onChange,
   } = props;
@@ -39,7 +41,7 @@ export default function Input(props: Propstype) {
   }, [placeholder]);
 
   return (
-    <div className="flex flex-col">
+    <div className={`flex flex-col ${className}`}>
       <label htmlFor={label} className="mx-2">
         {label}
       </label>
