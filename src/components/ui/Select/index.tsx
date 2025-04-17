@@ -1,6 +1,7 @@
 type Option = {
     label: string
     value: string
+    selected?: boolean
 }
 
 type Propstype = {
@@ -8,12 +9,13 @@ type Propstype = {
   name: string;
   defaultValue?: string;
   disable?: boolean;
-  options: Option[]
+  options: Option[] | any
 };
 
 export default function Select(props: Propstype) {
 
     const {label, name, defaultValue, disable, options} = props
+    console.log(options)
 
   return (
     <div className="flex flex-col my-4">
@@ -27,8 +29,8 @@ export default function Select(props: Propstype) {
         disabled={disable}
         className="py-2 px-3 focus:outline-none focus:ring-2 focus:ring-accent text-white/80 bg-primary rounded-xl"
       >
-        {options.map((option, i) => (
-          <option key={option.label} value={option.value}>
+        {options.map((option: Option) => (
+          <option key={option.label} value={option.value} selected={option.selected}>
             {option.label}
           </option>
         ))}

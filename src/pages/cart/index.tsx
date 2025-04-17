@@ -1,3 +1,4 @@
+import MemberLayout from "@/components/layouts/MemberLayout";
 import CartView from "@/components/views/cart";
 import productServices from "@/services/product";
 import userServices from "@/services/user";
@@ -42,9 +43,11 @@ export default function CartPage(props: PropTypes) {
       <Head>
         <title>Cart</title>
       </Head>
-      <div className="container">
-        <CartView cart={cart} products={products}/>
-      </div>
+      
+        <div className="container">
+          <CartView cart={cart} products={products} />
+        </div>
+      
     </>
   );
 }

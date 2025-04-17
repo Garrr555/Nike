@@ -42,9 +42,14 @@ export const listSideBarMember = [
     url: "/member",
     icon: MdDashboard,
   },
+  // {
+  //   title: "Orders",
+  //   url: "/member/orders",
+  //   icon: FaCartShopping,
+  // },
   {
     title: "Orders",
-    url: "/member/orders",
+    url: "/cart",
     icon: FaCartShopping,
   },
   {

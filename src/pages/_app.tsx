@@ -11,7 +11,7 @@ import { JetBrains_Mono } from "next/font/google";
 import { use, useEffect, useState } from "react";
 config.autoAddCss = false;
 
-const disableNavbar = ["auth", "admin", "member"];
+const disableNavbar = ["auth", "admin", "member", "cart"];
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
