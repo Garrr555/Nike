@@ -22,7 +22,7 @@ export default function ModalAddProduct(props: PropsType) {
   const [isLoading, setIsLoading] = useState(false);
   const [stockCount, setStockCount] = useState([{ size: "", qty: 0 }]);
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
-  const { setModalAddProduct, setProductsData , setToaster} = props;
+  const { setModalAddProduct, setProductsData, setToaster } = props;
   const session: any = useSession();
 
   const handleStock = (e: any, i: number, type: string) => {
@@ -84,15 +84,24 @@ export default function ModalAddProduct(props: PropsType) {
     event.preventDefault();
     setIsLoading(true);
     const form: any = event.target as HTMLFormElement;
+    const stock = stockCount.map((stock) => {
+      return {
+        size: stock.size,
+        qty: parseInt(`${stock.qty}`),
+      };
+    })
     const data = {
       name: form.name.value,
-      price: form.price.value,
+      price: parseInt(form.price.value),
       category: form.category.value,
       status: form.status.value,
-      stock: stockCount,
+      stock: stock,
       age: form.age.value,
       image: "",
     };
+
+    console.log(data);
+
     const result = await productServices.addProduct(
       data,
       session.data?.accessToken
