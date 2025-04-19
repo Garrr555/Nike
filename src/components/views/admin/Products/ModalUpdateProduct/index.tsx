@@ -20,12 +20,10 @@ type PropsType = {
 };
 
 export default function ModalUpdateProduct(props: PropsType) {
-  const { updatedProduct, setUpdatedProduct, setProductsData, setToaster } =
-    props;
+  const { updatedProduct, setUpdatedProduct, setProductsData, setToaster } = props;
   const [isLoading, setIsLoading] = useState(false);
   const [stockCount, setStockCount] = useState(updatedProduct.stock);
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
-
   const session: any = useSession();
 
   const handleStock = (e: any, i: number, type: string) => {
@@ -34,8 +32,11 @@ export default function ModalUpdateProduct(props: PropsType) {
     setStockCount(newStockCount);
   };
 
-  const updateProduct = async ( form: any, newImageURL: string = updatedProduct.image) => {
-    const stock = stockCount.map((stock: {size:string, qty:number}) => {
+  const updateProduct = async (
+    form: any,
+    newImageURL: string = updatedProduct.image
+  ) => {
+    const stock = stockCount.map((stock: { size: string; qty: number }) => {
       return {
         size: stock.size,
         qty: parseInt(`${stock.qty}`),
@@ -101,7 +102,7 @@ export default function ModalUpdateProduct(props: PropsType) {
         }
       );
     } else {
-         updateProduct(form);
+      updateProduct(form);
     }
   };
 

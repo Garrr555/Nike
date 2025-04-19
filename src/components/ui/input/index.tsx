@@ -1,7 +1,5 @@
 "use client";
 
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 
 type Propstype = {
@@ -26,8 +24,6 @@ export default function Input(props: Propstype) {
     type,
     placeholder,
     placeholderreal,
-    visible,
-    handleVisible,
     defaultValue,
     className,
     disable,
@@ -63,7 +59,7 @@ export default function Input(props: Propstype) {
 
   const inputValue =
     controlledValue !== undefined ? controlledValue : internalValue;
-    
+
   return (
     <div className={`flex flex-col ${className}`}>
       <label htmlFor={label} className="mx-2">
