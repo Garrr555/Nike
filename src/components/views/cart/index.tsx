@@ -80,6 +80,7 @@ export default function CartView(props: PropTypes) {
     );
     return total;
   };
+  console.log(getTotalPrice());
 
   const handleDeletreCart = async (id: string, size: string) => {
     const newCart = cart.filter((item: { id: string; size: string }) => {
@@ -191,7 +192,9 @@ export default function CartView(props: PropTypes) {
             ))}
           </div>
         ) : (
-          <div className="text-center text-white/30 text-7xl h-full flex items-center justify-center">Cart Empety</div>
+          <div className="text-center text-white/30 text-7xl h-full flex items-center justify-center">
+            Cart Empety
+          </div>
         )}
       </div>
       <div className="w-2/6 sticky h-fit top-5">
@@ -207,8 +210,8 @@ export default function CartView(props: PropTypes) {
               <p className="">{convertIDR(0)}</p>
             </div>
             <div className="flex items-center justify-between">
-              <p>Tax:</p>
-              <p className="">{convertIDR(0)}</p>
+              <p>Tax: (10%)</p>
+              <p className="">{convertIDR((getTotalPrice()) * 0.1)}</p>
             </div>
           </div>
           <div className="w-full">
@@ -217,7 +220,7 @@ export default function CartView(props: PropTypes) {
               <div className="flex items-center justify-between">
                 <p>Total:</p>
                 <p className="text-accent text-lg font-bold">
-                  {convertIDR(getTotalPrice())}
+                  {convertIDR((getTotalPrice()) * 1.1)}
                 </p>
               </div>
               <hr className="my-4" />
