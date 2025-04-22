@@ -9,6 +9,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { Fragment, useContext, useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
+import ModalChangeAddress from "./ModalChangeAddress";
 
 type PropTypes = {
   setToaster: React.Dispatch<React.SetStateAction<{}>>;
@@ -20,6 +21,7 @@ export default function CheckoutView(props: PropTypes) {
   const [profile, setProfile] = useState<any>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [selectedAddress, setSelectedAddress] = useState(0);
+  const [changeAddress, setChangeAddress] = useState(false);
 
   console.log(session.data?.accessToken);
   console.log(profile);
@@ -28,10 +30,10 @@ export default function CheckoutView(props: PropTypes) {
   const getProfile = async (token: string) => {
     const { data } = await userServices.getProfile(token);
     setProfile(data.data);
-    data.data.address.filter((address:{isMain:boolean}, id: number) => {
-        if(address.isMain) {
-            setSelectedAddress(id)
-        }
+    data.data.address.filter((address: { isMain: boolean }, id: number) => {
+      if (address.isMain) {
+        setSelectedAddress(id);
+      }
     });
   };
 
@@ -74,28 +76,33 @@ export default function CheckoutView(props: PropTypes) {
         <h1 className="text-3xl font-extrabold mb-5">Cart</h1>
         <div className="bg-secondary my-5 p-3 rounded-xl border border-white/80">
           <p className="text-lg font-bold mb-3 text-accent">Shipping Address</p>
-          <div>
-            {profile?.address?.length > 0 &&
-              profile?.address[selectedAddress] && (
-                <div className="flex flex-col gap-1">
-                  <p className="font-bold">
-                    {profile.address[selectedAddress].recipient} -{" "}
-                    {profile.address[selectedAddress].phone}
-                  </p>
-                  <p>{profile.address[selectedAddress].addressLine}</p>
-                  <p className="mb-5">
-                    Note: {profile.address[selectedAddress].note}
-                  </p>
-                  <Button
-                    type="button"
-                    bgcolor="bg-accent rounded-lg"
-                    textcolor="text-primary"
-                  >
-                    Change
-                  </Button>
-                </div>
-              )}
-          </div>
+          {profile?.address?.length > 0 ? (
+            <div>
+              {profile?.address?.length > 0 &&
+                profile?.address[selectedAddress] && (
+                  <div className="flex flex-col gap-1">
+                    <p className="font-bold">
+                      {profile.address[selectedAddress].recipient} -{" "}
+                      {profile.address[selectedAddress].phone}
+                    </p>
+                    <p>{profile.address[selectedAddress].addressLine}</p>
+                    <p className="mb-5">
+                      Note: {profile.address[selectedAddress].note}
+                    </p>
+                    <Button
+                      type="button"
+                      bgcolor="bg-accent rounded-lg"
+                      textcolor="text-primary"
+                      onClick={() => setChangeAddress(true)}
+                    >
+                      Change
+                    </Button>
+                  </div>
+                )}
+            </div>
+          ) : (
+            <p>Product not found</p>
+          )}
         </div>
         {profile?.carts?.length > 0 ? (
           <div className="border border-white/80 rounded-xl p-4">
@@ -195,11 +202,20 @@ export default function CheckoutView(props: PropTypes) {
               textcolor="text-primary"
               bgcolor="bg-accent rounded-full w-full"
             >
-              Checkout
+              Process Payment
             </Button>
           </div>
         </div>
       </div>
+
+      {changeAddress && (
+        <ModalChangeAddress
+          address={profile.address}
+          setChangeAddress={setChangeAddress}
+          setSelectedAddress={setSelectedAddress}
+          selectedAddress={selectedAddress}
+        />
+      )}
     </div>
   );
 }
