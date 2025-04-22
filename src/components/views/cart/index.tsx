@@ -7,6 +7,7 @@ import { Product } from "@/types/product.type";
 import { convertIDR } from "@/utils/currency";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
 import { Fragment, useContext, useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 
@@ -46,7 +47,7 @@ export default function CartView(props: PropTypes) {
   console.log(cart);
 
   const getProduct = (id: string) => {
-    const product = products.find((product) => product.id === id);
+    const product: any = products.find((product: Product) => product.id === id);
     return product;
   };
 
@@ -103,8 +104,6 @@ export default function CartView(props: PropTypes) {
 
     console.log(newCart);
   };
-
-  console.log(getTotalPrice());
 
   return (
     <div className="w-full flex gap-1 justify-center my-5">
@@ -211,7 +210,7 @@ export default function CartView(props: PropTypes) {
             </div>
             <div className="flex items-center justify-between">
               <p>Tax: (10%)</p>
-              <p className="">{convertIDR((getTotalPrice()) * 0.1)}</p>
+              <p className="">{convertIDR(getTotalPrice() * 0.1)}</p>
             </div>
           </div>
           <div className="w-full">
@@ -220,18 +219,20 @@ export default function CartView(props: PropTypes) {
               <div className="flex items-center justify-between">
                 <p>Total:</p>
                 <p className="text-accent text-lg font-bold">
-                  {convertIDR((getTotalPrice()) * 1.1)}
+                  {convertIDR(getTotalPrice() * 1.1)}
                 </p>
               </div>
               <hr className="my-4" />
             </div>
-            <Button
-              type="button"
-              textcolor="text-primary"
-              bgcolor="bg-accent rounded-full w-full"
-            >
-              Checkout
-            </Button>
+            <Link href={"/checkout"}>
+              <Button
+                type="button"
+                textcolor="text-primary"
+                bgcolor="bg-accent rounded-full w-full"
+              >
+                Checkout
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

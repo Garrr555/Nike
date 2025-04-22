@@ -134,7 +134,7 @@ export default function ProfileMemberView({
 
   console.log(changeImage);
   console.log(changeImage.name);
-  console.log("profile: ", profile.fullname);
+  console.log("profile: ", profile.image);
 
   return (
     <MemberLayout>

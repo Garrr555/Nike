@@ -9,7 +9,6 @@ export default function ProfilePage({setToaster}:any) {
   const session: any = useSession()
 
   useEffect(() => {
-
     if(session.data?.accessToken && Object.keys(profile).length === 0){
       const getProfile = async () => {
         const { data } = await userServices.getProfile(
