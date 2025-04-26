@@ -7,20 +7,13 @@ import { convertIDR } from "@/utils/currency";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaMoneyBill1Wave } from "react-icons/fa6";
 import Script from "next/script";
+import ModalDetailOrder from "./ModalDetailOrder";
+import productServices from "@/services/product";
 
-type PropsType = {
-  users: any;
-};
-
-interface User {
-  fullname: string;
-  email: string;
-  phone: string;
-  role: string;
-}
-
-export default function OrdersMemberView(props: PropsType) {
+export default function OrdersMemberView() {
   const [profile, setProfile] = useState<any>({});
+  const [detailOrder, setDetailOrder] = useState<any>({});
+  const [products, setProducts] = useState<any>([]);
   const session: any = useSession();
 
   useEffect(() => {
@@ -35,6 +28,14 @@ export default function OrdersMemberView(props: PropsType) {
       getProfile();
     }
   }, [profile, session]);
+
+  useEffect(() => {
+    const getAllProducts = async () => {
+      const { data } = await productServices.getAllProducts();
+      setProducts(data.data);
+    };
+    getAllProducts();
+  }, []);
 
   const transaction: any = profile?.transaction;
   console.log(transaction);
@@ -83,7 +84,7 @@ export default function OrdersMemberView(props: PropsType) {
                       type="button"
                       textcolor="text-secondary text-xl"
                       bgcolor="bg-yellow-400 rounded-lg"
-                      onClick={() => {}}
+                      onClick={() => setDetailOrder(transaction)}
                     >
                       <BsThreeDotsVertical />
                     </Button>
@@ -105,6 +106,13 @@ export default function OrdersMemberView(props: PropsType) {
           </table>
         </div>
       </MemberLayout>
+      {Object.keys(detailOrder).length && (
+              <ModalDetailOrder
+                setDetailOrders={setDetailOrder}
+                detailOrders={detailOrder}
+                products={products}
+              />
+            )}
     </>
   );
 }

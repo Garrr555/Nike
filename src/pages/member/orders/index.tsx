@@ -19,7 +19,7 @@ export default function MemberOrdersPage() {
 
   return (
     <>
-      <OrdersMemberView users={users} />
+      <OrdersMemberView />
     </>
   );
 }
