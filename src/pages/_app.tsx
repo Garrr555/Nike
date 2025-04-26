@@ -8,8 +8,14 @@ import "boxicons/css/boxicons.min.css";
 import { useRouter } from "next/router";
 import Toaster from "@/components/ui/Toaster";
 import { JetBrains_Mono } from "next/font/google";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 config.autoAddCss = false;
+
+declare global {
+  interface Window {
+    snap: any;
+  }
+}
 
 const disableNavbar = ["auth", "admin", "member", "cart", "checkout"];
 

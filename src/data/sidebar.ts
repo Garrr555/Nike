@@ -49,7 +49,7 @@ export const listSideBarMember = [
   // },
   {
     title: "Orders",
-    url: "/cart",
+    url: "/member/orders",
     icon: FaCartShopping,
   },
   {

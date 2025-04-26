@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 export default function ProfilePage({setToaster}:any) {
 
-  const [profile, setProfile] = useState({});
+  const [profile, setProfile] = useState<any>({});
   const session: any = useSession()
 
   useEffect(() => {
@@ -21,7 +21,8 @@ export default function ProfilePage({setToaster}:any) {
     }
   }, [profile, session]);
 
-  console.log(profile)
+  const transaction:any = profile?.transaction
+  console.log(transaction)
 
   return (
     <div>

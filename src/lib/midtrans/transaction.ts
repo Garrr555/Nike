@@ -7,3 +7,9 @@ export async function createTransaction(params: any, callback: Function) {
       callback(transaction);
     });
 }
+
+export async function getTransaction(token: string, callback: Function) {
+  snap.transaction.status(token).then((res: any) => {
+    callback(res);
+  });
+}
