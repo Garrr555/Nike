@@ -24,10 +24,12 @@ export default function CheckoutView(props: PropTypes) {
   const [products, setProducts] = useState<Product[]>([]);
   const [selectedAddress, setSelectedAddress] = useState(0);
   const [changeAddress, setChangeAddress] = useState(false);
+  const token = session.data?.accessToken;
 
-  console.log(session.data?.accessToken);
+  console.log(token);
   console.log(profile);
   console.log(products);
+
 
   const getProfile = async (token: string) => {
     const { data } = await userServices.getProfile(token);
@@ -250,10 +252,12 @@ export default function CheckoutView(props: PropTypes) {
 
         {changeAddress && (
           <ModalChangeAddress
-            address={profile.address}
+            profile={profile}
             setChangeAddress={setChangeAddress}
             setSelectedAddress={setSelectedAddress}
             selectedAddress={selectedAddress}
+            setToaster={setToaster}
+            setProfile={setProfile}
           />
         )}
       </div>
