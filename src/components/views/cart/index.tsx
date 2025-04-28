@@ -108,7 +108,7 @@ export default function CartView(props: PropTypes) {
   return (
     <div className="w-full flex gap-1 justify-center my-5">
       <div className="w-4/6 px-2">
-        <h1 className="text-3xl font-extrabold mb-5">Cart</h1>
+        <Link href="/products"><h1 className="text-4xl font-bold">Cart</h1></Link>
         {cart.length > 0 ? (
           <div>
             {cart.map((item: { id: string; size: string; qty: number }) => (
