@@ -5,6 +5,10 @@ const transactionServices = {
     instance.get(`/api/transaction?order_id=${order_id}`, {
       headers: { Authorization: `Bearer ${token}` },
     }),
+  getAllTransaction: (token: string) =>
+    instance.get(`/api/transaction/admin`, {
+      headers: { Authorization: `Bearer ${token}` },
+    }),
   generatedTransaction: (data: any, token: string) =>
     instance.post("/api/transaction", data, {
       headers: {

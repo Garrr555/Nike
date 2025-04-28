@@ -15,6 +15,11 @@ export const listSideBarAdmin = [
     url: "/admin/products",
     icon: FaBox,
   },
+  {
+    title: "Orders",
+    url: "/admin/orders",
+    icon: FaCartShopping,
+  },
   // {
   //   title: "Profile",
   //   url: "/admin/profile",
@@ -42,11 +47,6 @@ export const listSideBarMember = [
     url: "/member",
     icon: MdDashboard,
   },
-  // {
-  //   title: "Orders",
-  //   url: "/member/orders",
-  //   icon: FaCartShopping,
-  // },
   {
     title: "Orders",
     url: "/member/orders",
