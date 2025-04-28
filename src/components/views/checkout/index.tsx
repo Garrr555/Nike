@@ -34,11 +34,13 @@ export default function CheckoutView(props: PropTypes) {
   const getProfile = async (token: string) => {
     const { data } = await userServices.getProfile(token);
     setProfile(data.data);
-    data.data.address.filter((address: { isMain: boolean }, id: number) => {
-      if (address.isMain) {
-        setSelectedAddress(id);
-      }
-    });
+    if (data.data.address && data.data.address.length > 0) {
+      data.data.address.forEach((address: { isMain: boolean }, id: number) => {
+        if (address.isMain) {
+          setSelectedAddress(id);
+        }
+      });
+    }
   };
 
   console.log(selectedAddress);
@@ -140,7 +142,19 @@ export default function CheckoutView(props: PropTypes) {
                   )}
               </div>
             ) : (
-              <p>Product not found</p>
+              <div className="">
+                <div className="bg-primary rounded-lg p-10 my-4">
+                  <p className="text-center text-white/80">No Data</p>
+                </div>
+                <Button
+                  type="button"
+                  bgcolor="bg-accent rounded-lg w-full"
+                  textcolor="text-primary"
+                  onClick={() => setChangeAddress(true)}
+                >
+                  Add New Address
+                </Button>
+              </div>
             )}
           </div>
           {profile?.carts?.length > 0 ? (
