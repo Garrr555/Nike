@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { FaRegUser, FaRobot } from "react-icons/fa";
+import ReactMarkdown from "react-markdown";
 
 interface Message {
   role: "user" | "assistant";
@@ -99,7 +100,13 @@ export default function ChatbotView() {
                       : "bg-zinc-800 rounded-bl-none"
                   }`}
                 >
-                  {message.content}
+                  {isUser ? (
+                    message.content
+                  ) : (
+                    <div className="prose prose-invert text-sm">
+                      <ReactMarkdown>{message.content}</ReactMarkdown>
+                    </div>
+                  )}
                 </div>
 
                 {isUser && (
