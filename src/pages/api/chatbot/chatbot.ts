@@ -24,11 +24,27 @@ export default async function handler(
 
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 
-    // Format pesan sesuai Gemini
-    const history = messages.map((msg: any) => ({
-      role: msg.role === "assistant" ? "model" : "user",
-      parts: [{ text: msg.content }],
-    }));
+    // Tambahkan prompt sistem di awal
+    const systemPrompt = {
+      role: "user",
+      parts: [
+        {
+          text:
+            "Kamu adalah asisten toko sepatu bernama MARGAI. " +
+            "Tugasmu adalah membantu pelanggan dalam hal-hal yang berkaitan dengan sepatu, seperti jenis sepatu, ukuran, model, tren, perawatan sepatu, dan informasi pembelian sepatu. " +
+            "Jika ada pertanyaan di luar topik sepatu atau toko sepatu, tolak secara sopan dengan mengatakan bahwa kamu hanya dapat membantu seputar sepatu.",
+        },
+      ],
+    };
+
+    // Gabungkan system prompt dan history dari user
+    const history = [
+      systemPrompt,
+      ...messages.map((msg: any) => ({
+        role: msg.role === "assistant" ? "model" : "user",
+        parts: [{ text: msg.content }],
+      })),
+    ];
 
     const result = await model.generateContent({
       contents: history,
