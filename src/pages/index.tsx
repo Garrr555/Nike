@@ -12,7 +12,10 @@ export default function Home() {
 
   return (
     <main className=" w-full">
-      <DashboardView/>
+      {/* <DashboardView/> */}
+      <div className="flex justify-center items-center border h-screen m-5 text-3xl text-accent rounded-lg bg-secondary">
+        Desain Dashboard here
+      </div>
     </main>
   );
 }

@@ -13,12 +13,6 @@ const links = [
     role: "member",
   },
   {
-    name: "Map",
-    path: "/map",
-    logo: FaMapMarkedAlt,
-    role: "member",
-  },
-  {
     name: "AI",
     path: "/ai",
     logo: RiRobot3Fill,

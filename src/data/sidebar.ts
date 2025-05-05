@@ -20,25 +20,10 @@ export const listSideBarAdmin = [
     url: "/admin/orders",
     icon: FaCartShopping,
   },
-  // {
-  //   title: "Profile",
-  //   url: "/admin/profile",
-  //   icon: CgProfile,
-  // },
   {
     title: "Users",
     url: "/admin/users",
     icon: FaUsers,
-  },
-  {
-    title: "Statistic",
-    url: "/admin/stat",
-    icon: IoStatsChart,
-  },
-  {
-    title: "Map",
-    url: "/admin/map",
-    icon: FaMapMarkedAlt,
   },
 ];
 export const listSideBarMember = [
