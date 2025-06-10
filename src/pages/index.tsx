@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <main className=" w-full">
       {/* <DashboardView/> */}
-      <div className="flex justify-center items-center border h-screen m-5 text-3xl text-accent rounded-lg bg-secondary">
+      <div className="">
         <DashboardView/>
       </div>
     </main>
