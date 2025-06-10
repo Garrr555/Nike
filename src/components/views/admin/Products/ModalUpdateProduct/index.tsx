@@ -63,16 +63,16 @@ export default function ModalUpdateProduct(props: PropsType) {
       setUpdatedProduct(false);
       const { data } = await productServices.getAllProducts();
       setProductsData(data.data);
-      //   setToaster({
-      //     variant: "success",
-      //     message: "Success to update product",
-      //   });
+        setToaster({
+          variant: "success",
+          message: "Success to update product",
+        });
     } else {
       setIsLoading(false);
-      //   setToaster({
-      //     variant: "error",
-      //     message: "Failed to add product",
-      //   });
+        setToaster({
+          variant: "error",
+          message: "Failed to add product",
+        });
     }
   };
 
@@ -94,10 +94,10 @@ export default function ModalUpdateProduct(props: PropsType) {
             updateProduct(form, newImageURL);
           } else {
             setIsLoading(false);
-            // setToaster({
-            //   variant: "error",
-            //   message: "Failed to update product",
-            // });
+            setToaster({
+              variant: "error",
+              message: "Failed to update product",
+            });
           }
         }
       );
@@ -147,7 +147,7 @@ export default function ModalUpdateProduct(props: PropsType) {
           ]}
           defaultValue={updatedProduct.status}
         />
-        <div className="my-4">
+        <div className="my-4 hidden">
           <Input
             label="Age"
             name="age"

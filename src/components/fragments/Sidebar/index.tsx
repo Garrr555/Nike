@@ -25,7 +25,7 @@ export default function Sidebar(props: PropsType){
         <div>
           <div className="text-2xl mb-8">
             <Link href="/">
-              {label} Nike<span className="text-accent">.</span>
+              {label} Footwear<span className="text-accent">.</span>
             </Link>
           </div>
           <div className="space-y-4 flex flex-col gap-0">

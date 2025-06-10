@@ -57,23 +57,23 @@ export default function ModalAddProduct(props: PropsType) {
               setModalAddProduct(false);
               const { data } = await productServices.getAllProducts();
               setProductsData(data.data);
-              // setToaster({
-              //   variant: "success",
-              //   message: "Success to add product",
-              // });
+              setToaster({
+                variant: "success",
+                message: "Success to add product",
+              });
             } else {
               setIsLoading(false);
-              // setToaster({
-              //   variant: "error",
-              //   message: "Failed to add product",
-              // });
+              setToaster({
+                variant: "error",
+                message: "Failed to add product",
+              });
             }
           } else {
             setIsLoading(false);
-            // setToaster({
-            //   variant: "error",
-            //   message: "Failed to add product",
-            // });
+            setToaster({
+              variant: "error",
+              message: "Failed to add product",
+            });
           }
         }
       );
@@ -150,7 +150,7 @@ export default function ModalAddProduct(props: PropsType) {
           ]}
           defaultValue={""}
         />
-        <div className="my-4">
+        <div className="my-4 hidden">
           <Input
             label="Age"
             name="age"

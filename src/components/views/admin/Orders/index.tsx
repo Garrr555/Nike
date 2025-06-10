@@ -71,9 +71,9 @@ export default function OrdersAdminView() {
             <thead>
               <tr className="bg-gray-900">
                 <th className="p-2 font-semibold">No</th>
-                <th className="p-2 text-start font-semibold">Order</th>
+                <th className="p-2 font-semibold">Order</th>
                 <th className="p-2 text-start font-semibold">User Name</th>
-                <th className="p-2 text-start font-semibold">Total</th>
+                <th className="p-2 font-semibold">Total</th>
                 <th className="p-2 text-start font-semibold">Status</th>
                 <th className="p-2 font-semibold">Action</th>
               </tr>
@@ -84,10 +84,10 @@ export default function OrdersAdminView() {
                   key={transaction.order_id}
                   className={index % 2 === 0 ? "bg-gray-800" : "bg-primary"}
                 >
-                  <td className="text-center">{index + 1}</td>
-                  <td className="py-5">{transaction.order_id}</td>
-                  <td className="py-5">{transaction.user.fullname}</td>
-                  <td>{convertIDR(transaction.total)}</td>
+                  <td className="text-center">{index + 1}.</td>
+                  <td className="py-5 max-w-40 overflow-hidden text-center">{transaction.order_id}</td>
+                  <td className="py-5 font-extrabold">{transaction.user.fullname}</td>
+                  <td className="text-center">{convertIDR(transaction.total)}</td>
                   <td
                     className={`${
                       transaction.status === "pending"

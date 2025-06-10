@@ -29,7 +29,9 @@ export default function ProductView(props: PropsTypes) {
     );
   };
 
-  const filteredProducts = products.filter((product) => {
+  const filteredProducts = products.filter((product: any) => {
+    const matchStatus = product.status === "true";
+
     const matchGender =
       selectedGenders.length === 0 ||
       selectedGenders.includes(product.category.toLowerCase());
@@ -41,7 +43,7 @@ export default function ProductView(props: PropsTypes) {
       searchQuery === "" ||
       product.name.toLowerCase().includes(searchQuery.toLowerCase());
 
-    return matchGender && matchMinPrice && matchMaxPrice && matchSearchQuery;
+    return matchStatus && matchGender && matchMinPrice && matchMaxPrice && matchSearchQuery;
   });
 
   const resetFilters = () => {

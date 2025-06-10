@@ -14,7 +14,7 @@ export default function Home() {
     <main className=" w-full">
       {/* <DashboardView/> */}
       <div className="flex justify-center items-center border h-screen m-5 text-3xl text-accent rounded-lg bg-secondary">
-        Desain Dashboard here
+        <DashboardView/>
       </div>
     </main>
   );

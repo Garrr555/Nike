@@ -11,7 +11,7 @@ export default function Header() {
       <div className="container flex justify-between dark:text-white ">
         <Link href={"/"}>
           <h1 className="text-4xl font-semibold dark:text-white">
-            Nike<span className="text-accent">.</span>
+            Footwear<span className="text-accent">.</span>
           </h1>
         </Link>
         {/* Desktop Navbar */}

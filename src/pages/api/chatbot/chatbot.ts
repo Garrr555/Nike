@@ -22,7 +22,7 @@ export default async function handler(
   try {
     const { messages } = req.body;
 
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     // Tambahkan prompt sistem di awal
     const systemPrompt = {
@@ -30,9 +30,9 @@ export default async function handler(
       parts: [
         {
           text:
-            "Kamu adalah asisten toko sepatu bernama MARGAI. " +
-            "Tugasmu adalah membantu pelanggan dalam hal-hal yang berkaitan dengan sepatu, seperti jenis sepatu, ukuran, model, tren, perawatan sepatu, dan informasi pembelian sepatu. " +
-            "Jika ada pertanyaan di luar topik sepatu atau toko sepatu, tolak secara sopan dengan mengatakan bahwa kamu hanya dapat membantu seputar sepatu.",
+            "Kamu adalah asisten dari ecommerce bernama Footwear yang berfokus pada penjualan sepatu. " +
+            "Tugasmu adalah membantu pembeli dalam hal-hal yang berkaitan dengan sepatu. " +
+            "Jika ada pertanyaan di luar topik sepatu, tolak secara sopan dengan mengatakan bahwa kamu hanya dapat membantu seputar data sepatu.",
         },
       ],
     };
@@ -55,6 +55,12 @@ export default async function handler(
 
     return res.status(200).json({ message: text });
   } catch (error: any) {
+    if (error.status === 429) {
+      return res.status(429).json({
+        error:
+          "Kamu telah melewati batas permintaan untuk saat ini. Silakan coba lagi nanti.",
+      });
+    }
     console.error("Gemini API error:", error);
     return res.status(500).json({
       error: error.message || "Internal Server Error",

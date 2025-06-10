@@ -36,9 +36,9 @@ export default function ProductsAdminView(props: PropsType) {
     setProductsData(products);
   }, [products]);
 
-   const filteredProducts = productsData.filter((product) =>
-     product.name.toLowerCase().includes(searchQuery.toLowerCase())
-   );
+  const filteredProducts = productsData.filter((product) =>
+    product.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <>
@@ -91,7 +91,7 @@ export default function ProductsAdminView(props: PropsType) {
                   className="p-2 font-semibold border-x-2 border border-gray-800"
                   rowSpan={2}
                 >
-                  Category kelamin
+                  Category
                 </th>
                 <th
                   className="p-2 font-semibold border-x-2 border border-gray-800"
@@ -105,18 +105,18 @@ export default function ProductsAdminView(props: PropsType) {
                 >
                   Price
                 </th>
-                <th
+                {/* <th
                   className="p-2 font-semibold border-x-2 border border-gray-800"
                   rowSpan={2}
                 >
                   Age
-                </th>
-                {/* <th
+                </th> */}
+                <th
                   className="p-2 font-semibold border-x-2 border border-gray-800"
                   colSpan={2}
                 >
                   Stock
-                </th> */}
+                </th>
                 <th
                   className="p-2 font-semibold border-l-2 border border-gray-800"
                   rowSpan={2}
@@ -124,14 +124,14 @@ export default function ProductsAdminView(props: PropsType) {
                   Action
                 </th>
               </tr>
-              {/* <tr className="bg-gray-900">
+              <tr className="bg-gray-900">
                 <th className="p-2 font-semibold border-x-2 border border-gray-800">
                   Size
                 </th>
                 <th className="p-2 font-semibold border-x-2 border border-gray-800">
                   Qty
                 </th>
-              </tr> */}
+              </tr>
             </thead>
             <tbody>
               {filteredProducts.map((product, index) => (
@@ -151,14 +151,33 @@ export default function ProductsAdminView(props: PropsType) {
                   <td>{product.name}</td>
                   <td className="text-center">{product.category}</td>
                   <td className="text-center">
-                    {product.status === "true"
-                      ? "Released Hidup"
-                      : "Not Released Meninggal"}
+                    {product.status === "true" ? "Released" : "Not Released"}
                   </td>
                   <td className="text-center">{convertIDR(product.price)}</td>
-                  <td className="text-center">{product.age}</td>
+                  {/* <td className="text-center">{product.age}</td> */}
+                  <td
+                    
+                  >
+                    <div className="flex flex-col gap-2 my-2">
+                      {product.stock.map((item, index) => (
+                        <div key={index} className="text-center">
+                          {item.size}
+                        </div>
+                      ))}
+                    </div>
+                  </td>
+                  <td>
+                    <div className="flex flex-col gap-2 my-2">
+                      {product.stock.map((item, index) => (
+                        <div key={index} className="text-center">
+                          {item.qty}
+                        </div>
+                      ))}
+                    </div>
+                  </td>
+
                   <td className="text-center">
-                    <div className="flex items-center justify-center gap-2">
+                    <div className="flex flex-col items-center justify-center gap-2">
                       <Button
                         type="button"
                         textcolor="text-primary text-xl"
@@ -204,7 +223,7 @@ export default function ProductsAdminView(props: PropsType) {
         <ModalDeleteProduct
           setDeletedProduct={setDeletedProduct}
           deletedProduct={deletedProduct}
-          // setToaster={setToaster}
+          setToaster={setToaster}
           setProductsData={setProductsData}
         />
       )}
