@@ -32,7 +32,7 @@ export default function MemberLayout(props: PropsType) {
               button ? "-translate-x-64" : ""
             } transition-all duration-500 ease-in-out`}
           >
-            <Sidebar label="Admin" lists={listSideBarMember} />
+            <Sidebar label="Member" lists={listSideBarMember} />
           </div>
           <div
             className={`${

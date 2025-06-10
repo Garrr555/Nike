@@ -13,7 +13,7 @@ export default function SuccessView() {
           type="button"
           bgcolor="bg-accent rounded-xl"
           textcolor="text-secondary"
-          onClick={() => push('/member/orders')}
+          onClick={() => push('/')}
         >
           Check Your Order Here
         </Button>

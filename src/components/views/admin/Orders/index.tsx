@@ -10,6 +10,8 @@ import ModalDetailOrder from "./ModalDetailOrder";
 import productServices from "@/services/product";
 import AdminLayout from "@/components/layouts/AdminLayout";
 import transactionServices from "@/services/transaction";
+import { FaCheck } from "react-icons/fa";
+import { useRouter } from "next/router";
 
 export default function OrdersAdminView() {
   const [profile, setProfile] = useState<any>({});
@@ -17,6 +19,7 @@ export default function OrdersAdminView() {
   const [products, setProducts] = useState<any>([]);
   const [transaction, setTransaction] = useState<any>([]);
   const session: any = useSession();
+      const { push } = useRouter();
 
   console.log(session.data?.accessToken);
 
@@ -85,9 +88,15 @@ export default function OrdersAdminView() {
                   className={index % 2 === 0 ? "bg-gray-800" : "bg-primary"}
                 >
                   <td className="text-center">{index + 1}.</td>
-                  <td className="py-5 max-w-40 overflow-hidden text-center">{transaction.order_id}</td>
-                  <td className="py-5 font-extrabold">{transaction.user.fullname}</td>
-                  <td className="text-center">{convertIDR(transaction.total)}</td>
+                  <td className="py-5 max-w-40 overflow-hidden text-center">
+                    {transaction.order_id}
+                  </td>
+                  <td className="py-5 font-extrabold">
+                    {transaction.user.fullname}
+                  </td>
+                  <td className="text-center">
+                    {convertIDR(transaction.total)}
+                  </td>
                   <td
                     className={`${
                       transaction.status === "pending"
@@ -109,13 +118,26 @@ export default function OrdersAdminView() {
                     <Button
                       type="button"
                       textcolor="text-secondary text-xl"
-                      bgcolor="bg-accent rounded-lg"
+                      bgcolor="bg-red-400 rounded-lg"
                       disabled={transaction.status !== "pending" ? true : false}
                       onClick={() => {
                         window.snap.pay(transaction.token);
                       }}
                     >
                       <FaMoneyBill1Wave />
+                    </Button>
+                    <Button
+                      type="button"
+                      textcolor="text-secondary text-xl"
+                      bgcolor="bg-accent rounded-lg"
+                      disabled={transaction.status !== "pending" ? true : false}
+                      onClick={() => {
+                        push(
+                          `/transaction/success?order_id=${transaction.order_id}&status_code=200&transaction_status=settlement`
+                        );
+                      }}
+                    >
+                      <FaCheck />
                     </Button>
                   </td>
                 </tr>

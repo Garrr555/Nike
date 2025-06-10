@@ -9,12 +9,15 @@ import { FaMoneyBill1Wave } from "react-icons/fa6";
 import Script from "next/script";
 import ModalDetailOrder from "./ModalDetailOrder";
 import productServices from "@/services/product";
+import { useRouter } from "next/router";
+import { FaCheck } from "react-icons/fa";
 
 export default function OrdersMemberView() {
   const [profile, setProfile] = useState<any>({});
   const [detailOrder, setDetailOrder] = useState<any>({});
   const [products, setProducts] = useState<any>([]);
   const session: any = useSession();
+    const { push } = useRouter();
 
   useEffect(() => {
     if (session.data?.accessToken && Object.keys(profile).length === 0) {
@@ -74,7 +77,9 @@ export default function OrdersMemberView() {
                   <td>{convertIDR(transaction.total)}</td>
                   <td
                     className={`${
-                      transaction.status === "pending" ? "text-red-500" : "text-accent"
+                      transaction.status === "pending"
+                        ? "text-red-500"
+                        : "text-accent"
                     }`}
                   >
                     {transaction.status}
@@ -91,13 +96,26 @@ export default function OrdersMemberView() {
                     <Button
                       type="button"
                       textcolor="text-secondary text-xl"
-                      bgcolor="bg-accent rounded-lg"
+                      bgcolor="bg-red-400 rounded-lg"
                       disabled={transaction.status !== "pending" ? true : false}
                       onClick={() => {
                         window.snap.pay(transaction.token);
                       }}
                     >
                       <FaMoneyBill1Wave />
+                    </Button>
+                    <Button
+                      type="button"
+                      textcolor="text-secondary text-xl"
+                      bgcolor="bg-accent rounded-lg"
+                      disabled={transaction.status !== "pending" ? true : false}
+                      onClick={() => {
+                        push(
+                          `/transaction/success?order_id=${transaction.order_id}&status_code=200&transaction_status=settlement`
+                        );
+                      }}
+                    >
+                      <FaCheck />
                     </Button>
                   </td>
                 </tr>
@@ -107,12 +125,12 @@ export default function OrdersMemberView() {
         </div>
       </MemberLayout>
       {Object.keys(detailOrder).length && (
-              <ModalDetailOrder
-                setDetailOrders={setDetailOrder}
-                detailOrders={detailOrder}
-                products={products}
-              />
-            )}
+        <ModalDetailOrder
+          setDetailOrders={setDetailOrder}
+          detailOrders={detailOrder}
+          products={products}
+        />
+      )}
     </>
   );
 }
